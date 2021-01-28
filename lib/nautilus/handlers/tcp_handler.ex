@@ -1,4 +1,4 @@
-defmodule Nautilus.Network.Handler do
+defmodule Nautilus.Handlers.TCPHandler do
 
     use GenServer
     require Logger
@@ -11,9 +11,12 @@ defmodule Nautilus.Network.Handler do
         {:ok, pid}
     end
 
+    def send_message(message) do
+        GenServer.cast(self(), {:send_message, message})
+    end
+
     def init(ref, transport, _opts) do
         Logger.info("Starting protocol")
-
         {:ok, socket} = :ranch.handshake(ref)
         :ok = transport.setopts(socket, [{:active, true}])
         :gen_server.enter_loop(__MODULE__, [], %{socket: socket, transport: transport})
@@ -21,7 +24,7 @@ defmodule Nautilus.Network.Handler do
 
     def handle_info({:tcp, socket, data}, state = %{socket: socket, transport: transport}) do
         Logger.info(data)
-        transport.send(socket, data)
+        send_message(data)
         {:noreply, state}
     end
 
@@ -29,6 +32,11 @@ defmodule Nautilus.Network.Handler do
         Logger.info("Closing")
         transport.close(socket)
         {:stop, :normal, state}
+    end
+
+    def handle_cast({:send_message, message}, state = %{socket: socket, transport: transport}) do
+        transport.send(socket, message)
+        {:noreply, state}
     end
 
 end

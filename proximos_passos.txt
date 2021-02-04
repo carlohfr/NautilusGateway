@@ -1,0 +1,48 @@
+= Adaptadores
+    + Message listener 
+        - Revisar o modulo, talvez trocar o nome e permitir iniciar o modulo de dentro dele (agora inicia em nautilus.ex)
+    
+    + CLI 
+        - adicionar o modulo de interface com o terminal 
+    
+    + Database 
+        - adicionar o modulo de interface com o database
+
+    + Cluster
+        - adicionar o modulo de interface com o cluster
+
+
+
+= Core
+    + Message
+        - definir o header das mensagens.
+        - adicionar os módulos de validação da mensagem.
+        - criar o código do handle_this_message/2 para organizar o flow das mensagens.
+    
+    + Registry
+        - adicionar o módulo de registro dos processos.
+
+    + Cluster
+        - adicionar o módulo cluster para ser possível conectar mais gateways.
+
+    + Commands
+        - adicionar o modulo de comandos para tornar possível uma CLI.
+        - criar o código do handle_this_command/2 para organizar o flow dos comandos.
+
+    + Database
+        - adicionar o módulo de database para salvar as infos dos clients conectados
+
+
+
+= Portas 
+    + Message listener
+        - Criar as portas 
+
+    + CLI
+        - Criar as portas 
+
+    + Cluster
+        - Criar as portas 
+
+    + Database
+        - Criar as portas 

@@ -1,8 +1,8 @@
-defmodule Nautilus.Handlers.TCPHandler do
+defmodule Nautilus.TCPMessageListenner.TCPHandler do
 
     use GenServer
     require Logger
-    alias Nautilus.Handlers.MessageHandler
+    alias Nautilus.Core.Message.MessageReceiver  #get this module name from configs
 
     @behaviour :ranch_protocol
 
@@ -21,7 +21,7 @@ defmodule Nautilus.Handlers.TCPHandler do
 
     def handle_info({:tcp, socket, message}, state = %{socket: socket, transport: _transport}) do
         Logger.info("Recv: " <> message) #just for test, remove in final version
-        _pid = spawn(MessageHandler, :process_message, [self(), message])
+        MessageReceiver.receive_this_message(self(), message)
         {:noreply, state}
     end
 

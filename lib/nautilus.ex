@@ -5,7 +5,7 @@ defmodule Nautilus do
     def start(_type, _args) do
 
         children = [
-            {Nautilus.Listeners.TCPListener, []}
+            {Nautilus.TCPMessageListenner.TCPListener, []}
         ]
 
         opts = [strategy: :one_for_one, name: Nautilus.Supervisor]

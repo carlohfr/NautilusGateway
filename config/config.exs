@@ -1,10 +1,15 @@
 use Mix.Config
 
 
-# Adpters modules
-config :nautilus, :TCPListener, Nautilus.TCPMessageListener.TCPListener
-config :nautilus, :TCPHandler, Nautilus.TCPMessageListener.TCPHandler
-config :nautilus, :TCPSender, Nautilus.TCPMessageListener.TCPSender
+# Ports
+config :nautilus, :MessageReceiverPort, Nautilus.Ports.MessageReceiver
+config :nautilus, :MessageSenderPort, Nautilus.Ports.MessageSender
+
+
+# Adapters modules
+config :nautilus, :TCPListener, Nautilus.Network.TCPListener
+config :nautilus, :TCPHandler, Nautilus.Network.TCPHandler
+config :nautilus, :TCPSender, Nautilus.Network.TCPSender
 
 
 # Core modules

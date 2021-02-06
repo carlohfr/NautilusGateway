@@ -1,4 +1,4 @@
-defmodule Nautilus.TCPMessageListener.TCPListener do
+defmodule Nautilus.Network.TCPListener do
 
     use GenServer
     require Logger
@@ -6,9 +6,11 @@ defmodule Nautilus.TCPMessageListener.TCPListener do
     @tcp_handler Application.get_env(:nautilus, :TCPHandler)
     @listen_port Application.get_env(:nautilus, :listen_port)
 
+
     def start_link(opts) do
         GenServer.start_link(__MODULE__, :ok, opts)
     end
+
 
     def init(:ok) do
 

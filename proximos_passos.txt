@@ -15,9 +15,8 @@
 
 = Core
     + Message
-        - definir o header das mensagens.
         - adicionar os módulos de validação da mensagem.
-        - criar o código do handle_this_message/2 para organizar o flow das mensagens.
+        - criar o código do handle_message/2 para organizar o flow das mensagens.
     
     + Registry
         - adicionar o módulo de registro dos processos.
@@ -27,7 +26,7 @@
 
     + Commands
         - adicionar o modulo de comandos para tornar possível uma CLI.
-        - criar o código do handle_this_command/2 para organizar o flow dos comandos.
+        - criar o código do handle_command/2 para organizar o flow dos comandos.
 
     + Database
         - adicionar o módulo de database para salvar as infos dos clients conectados

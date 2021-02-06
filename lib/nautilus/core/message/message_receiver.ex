@@ -1,11 +1,14 @@
 defmodule Nautilus.Core.Message.MessageReceiver do
 
     require Logger
-    alias Nautilus.Core.Message.MessageHandler
 
-    def receive_this_message(pid, message) do
+    @message_handler Application.get_env(:nautilus, :MessageHandler)
+
+    def receive_message(message) do
+
         Logger.info("MessageReceiver: #{message}") #just for test, remove in final version
-        _pid = spawn(MessageHandler, :handle_this_message, [pid, message])
+
+        _pid = spawn(@message_handler, :handle_message, [message])
     end
 
 end

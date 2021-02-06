@@ -2,19 +2,20 @@ defmodule Nautilus.TCPMessageListener.TCPListener do
 
     use GenServer
     require Logger
-    alias Nautilus.TCPMessageListener.TCPHandler
+
+    @tcp_handler Application.get_env(:nautilus, :TCPHandler)
+    @listen_port Application.get_env(:nautilus, :listen_port)
 
     def start_link(opts) do
         GenServer.start_link(__MODULE__, :ok, opts)
     end
 
     def init(:ok) do
-        listen_port = Application.fetch_env!(:nautilus, :listen_port)
-        opts = [port: listen_port]
 
-        Logger.info("listener waiting for a connection on port: #{listen_port}")
+        Logger.info("listener waiting for a connection on port: #{@listen_port}")
 
-        {:ok, _} = :ranch.start_listener(:nautilus, :ranch_tcp, opts, TCPHandler, [])
+        opts = [port: @listen_port]
+        {:ok, _} = :ranch.start_listener(:nautilus, :ranch_tcp, opts, @tcp_handler, [])
         {:ok, []}
     end
 

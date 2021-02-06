@@ -1,0 +1,8 @@
+version: 1.0
+to: x
+from: y
+action: client-to-client
+type: type/filetype
+size: 0000
+
+content

@@ -17,9 +17,6 @@ defmodule Nautilus.Network.TCPHandler do
 
 
     def init(ref, transport, _opts) do
-
-        Logger.info("Starting TCP handler") #just for test, remove in final version
-
         {:ok, socket} = :ranch.handshake(ref)
         :ok = transport.setopts(socket, [{:active, true}])
         :gen_server.enter_loop(__MODULE__, [], %{socket: socket, transport: transport})
@@ -28,7 +25,7 @@ defmodule Nautilus.Network.TCPHandler do
 
     def handle_info({:tcp, socket, message}, state = %{socket: socket, transport: _transport}) do
 
-        Logger.info("Recv: " <> message) #just for test, remove in final version
+        IO.puts(message) #just for test, remove in final version
 
         @message_receiver.receive_message(message)
         {:noreply, state}
@@ -37,7 +34,7 @@ defmodule Nautilus.Network.TCPHandler do
 
     def handle_info({:tcp_closed, socket}, state = %{socket: socket, transport: transport}) do
 
-        Logger.info("Closing") #just for test, remove in final version
+        Logger.info("Client quit") #just for test, remove in final version
 
         transport.close(socket)
         {:stop, :normal, state}

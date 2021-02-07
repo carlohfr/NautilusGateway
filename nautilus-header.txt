@@ -6,3 +6,8 @@ type: type/filetype
 size: 0000
 
 content
+
+end
+
+
+"version: 1.0\r\nto: x\r\nfrom: y\r\naction: client-to-client\r\ntype: type/filetype\r\nsize: 14\r\n\r\ncontent\r\n\r\nend"

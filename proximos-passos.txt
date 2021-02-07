@@ -1,22 +1,21 @@
 = Adaptadores
-    + Message listener 
-        - Revisar o modulo, talvez trocar o nome e permitir iniciar o modulo de dentro dele (agora inicia em nautilus.ex)
+    + Network adapter
+        - Revisar o modulo, permitir iniciar o modulo de dentro dele (agora inicia em nautilus.ex)
     
-    + CLI 
+    + CLI adapter
         - adicionar o modulo de interface com o terminal 
     
-    + Database 
+    + Database adapter
         - adicionar o modulo de interface com o database
 
-    + Cluster
+    + Cluster adapter
         - adicionar o modulo de interface com o cluster
 
 
 
 = Core
     + Message
-        - adicionar os módulos de validação da mensagem.
-        - criar o código do handle_message/2 para organizar o flow das mensagens.
+        - criar o código do handle_message/1 para organizar o flow das mensagens.
     
     + Registry
         - adicionar o módulo de registro dos processos.
@@ -35,7 +34,7 @@
 
 = Portas 
     + Message listener
-        - Criar as portas 
+        - Revisar código 
 
     + CLI
         - Criar as portas 

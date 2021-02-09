@@ -1,4 +1,4 @@
-defmodule Nautilus.Core.Validators.MessageValidator.MessageHeaderSyntaxValidator do
+defmodule Nautilus.Core.Validators.MessageValidator.Header.MessageHeaderSyntaxValidator do
 
     def validate_header([head|tail], header) do
         if has_field?(head, header) do

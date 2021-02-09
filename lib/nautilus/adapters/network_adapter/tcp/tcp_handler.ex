@@ -1,18 +1,21 @@
-defmodule Nautilus.Network.TCPHandler do
+defmodule Nautilus.Network.TCP.TCPHandler do
 
     use GenServer
     require Logger
 
     @behaviour :ranch_protocol
-    @message_receiver Application.get_env(:nautilus, :MessageReceiver)
+    @message_preparator Application.get_env(:nautilus, :MessagePreparator)
 
 
     def start_link(ref, socket, transport) do
-
         Logger.info("New client") #just for test, remove in final version
-
         pid = :proc_lib.spawn_link(__MODULE__, :init, [ref, socket, transport])
         {:ok, pid}
+    end
+
+
+    def init(args) do
+        {:ok, args}
     end
 
 
@@ -24,18 +27,14 @@ defmodule Nautilus.Network.TCPHandler do
 
 
     def handle_info({:tcp, socket, message}, state = %{socket: socket, transport: _transport}) do
-
         IO.puts(message) #just for test, remove in final version
-
-        @message_receiver.receive_message(message)
+        _pid = spawn(@message_preparator, :prepare_message, [message])
         {:noreply, state}
     end
 
 
     def handle_info({:tcp_closed, socket}, state = %{socket: socket, transport: transport}) do
-
         Logger.info("Client quit") #just for test, remove in final version
-
         transport.close(socket)
         {:stop, :normal, state}
     end

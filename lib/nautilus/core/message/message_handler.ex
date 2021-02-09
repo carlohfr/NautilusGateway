@@ -4,10 +4,15 @@ defmodule Nautilus.Core.Message.MessageHandler do
 
     def handle_message(message) do
 
-        case @message_validator.validate_message(message) do
+        header = elem(message, 0)
+        body = elem(message, 1)
+
+        case @message_validator.validate_message(header, body) do
             {:valid, header, body} ->
-                {header, body}
+                IO.puts("Valid message")
+                IO.inspect({header, body})
             _ ->
+                IO.puts("Invalid message")
                 :invalid
         end
 

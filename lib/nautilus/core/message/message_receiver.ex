@@ -4,8 +4,9 @@ defmodule Nautilus.Core.Message.MessageReceiver do
     @message_handler Application.get_env(:nautilus, :MessageHandler)
 
 
-    def receive_message(message) do
-        _pid = spawn(@message_handler, :handle_message, [message])
+    def receive_message(header, body) do
+        _pid = spawn(@message_handler, :handle_message, [{header, body}])
+        :ok
     end
 
 end

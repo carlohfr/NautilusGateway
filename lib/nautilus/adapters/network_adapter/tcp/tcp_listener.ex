@@ -1,4 +1,4 @@
-defmodule Nautilus.Network.TCPListener do
+defmodule Nautilus.Network.TCP.TCPListener do
 
     use GenServer
     require Logger

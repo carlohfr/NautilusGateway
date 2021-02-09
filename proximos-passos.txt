@@ -20,15 +20,8 @@
     + Registry
         - adicionar o módulo de registro dos processos.
 
-    + Cluster
-        - adicionar o módulo cluster para ser possível conectar mais gateways.
-
-    + Commands
-        - adicionar o modulo de comandos para tornar possível uma CLI.
-        - criar o código do handle_command/2 para organizar o flow dos comandos.
-
-    + Database
-        - adicionar o módulo de database para salvar as infos dos clients conectados
+    + Admin
+        - adicionar o modulo de admin para tornar possível o controle do gateway
 
 
 

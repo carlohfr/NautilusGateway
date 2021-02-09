@@ -6,20 +6,17 @@ config :nautilus, :listen_port, 10000
 
 
 
+# Message - Port module
+config :nautilus, :MessageReceiverPort, Nautilus.Ports.Message.MessageReceiver
+config :nautilus, :MessageSenderPort, Nautilus.Ports.Message.MessageSender
 
 
-
-
-
-# Ports
-config :nautilus, :MessageReceiverPort, Nautilus.Ports.MessageReceiver
-config :nautilus, :MessageSenderPort, Nautilus.Ports.MessageSender
-
-
-# Adapters modules
-config :nautilus, :TCPListener, Nautilus.Network.TCPListener
-config :nautilus, :TCPHandler, Nautilus.Network.TCPHandler
-config :nautilus, :TCPSender, Nautilus.Network.TCPSender
+# Network - Adapter module
+config :nautilus, :MessagePreparator, Nautilus.Network.Message.MessagePreparator
+config :nautilus, :MessageSplit, Nautilus.Network.Message.MessageSplit
+config :nautilus, :TCPListener, Nautilus.Network.TCP.TCPListener
+config :nautilus, :TCPHandler, Nautilus.Network.TCP.TCPHandler
+config :nautilus, :TCPSender, Nautilus.Network.TCP.TCPSender
 
 
 # Message - Core module
@@ -27,19 +24,13 @@ config :nautilus, :MessageReceiver, Nautilus.Core.Message.MessageReceiver
 config :nautilus, :MessageHandler, Nautilus.Core.Message.MessageHandler
 
 
-# Protocol - Core module
-config :nautilus, :MessageHeaderProtocol, Nautilus.Core.Protocol.MessageHeaderProtocol
-
-
 # Validators - Core module
-config :nautilus, :MessageValidator, Nautilus.Core.Validators.MessageValidator
-config :nautilus, :MessageHeaderValidator, Nautilus.Core.Validators.MessageValidator.MessageHeaderValidator
-config :nautilus, :MessageBodyValidator, Nautilus.Core.Validators.MessageValidator.MessageBodyValidor
-config :nautilus, :MessageHeaderSyntaxValidator, Nautilus.Core.Validators.MessageValidator.MessageHeaderSyntaxValidator
+config :nautilus, :MessageValidator, Nautilus.Core.Validators.MessageValidator.MessageValidator
+config :nautilus, :MessageBodyValidator, Nautilus.Core.Validators.MessageValidator.Body.MessageBodyValidor
+config :nautilus, :MessageHeaderValidator, Nautilus.Core.Validators.MessageValidator.Header.MessageHeaderValidator
+config :nautilus, :MessageHeaderSyntaxValidator, Nautilus.Core.Validators.MessageValidator.Header.MessageHeaderSyntaxValidator
 
 
-# Aceppted header fields - Dont change this
-config :nautilus, :MessageHeaderV1, ["version", "to", "from", "action", "type", "size"]
 
 
 import_config "#{Mix.env()}.exs"

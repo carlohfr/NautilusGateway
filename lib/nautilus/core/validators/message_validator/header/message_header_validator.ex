@@ -26,7 +26,7 @@ defmodule Nautilus.Core.Validators.MessageValidator.Header.MessageHeaderValidato
     def get_header_fields(version) do
         case version do
             "1.0" ->
-                fields = ["version", "to", "from", "action", "type", "size"]
+                fields = ["version", "to", "from", "action", "type", "body-size"]
                 {:ok, fields}
             _ ->
                 {:error, :wrong_version}

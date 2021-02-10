@@ -4,7 +4,7 @@ defmodule Nautilus.Network.TCP.TCPHandler do
     require Logger
 
     @behaviour :ranch_protocol
-    @message_preparator Application.get_env(:nautilus, :MessagePreparator)
+    @network_message_preparator Application.get_env(:nautilus, :NetworkMessagePreparator)
 
 
     def start_link(ref, socket, transport) do
@@ -28,7 +28,7 @@ defmodule Nautilus.Network.TCP.TCPHandler do
 
     def handle_info({:tcp, socket, message}, state = %{socket: socket, transport: _transport}) do
         IO.puts(message) #just for test, remove in final version
-        _pid = spawn(@message_preparator, :prepare_message, [message])
+        _pid = spawn(@network_message_preparator, :prepare_message, [message])
         {:noreply, state}
     end
 

@@ -1,25 +1,23 @@
 defmodule Nautilus.Core.Message.MessageHandler do
 
+    @behaviour Application.get_env(:nautilus, :MessageHandlerPort)
     @message_validator Application.get_env(:nautilus, :MessageValidator)
+    @action_mapper Application.get_env(:nautilus, :ActionMapper)
 
-    def handle_message(message) do
 
-        header = elem(message, 0)
-        body = elem(message, 1)
-
+    def handle_message(header, body) do
         case @message_validator.validate_message(header, body) do
             {:valid, header, body} ->
-                IO.puts("Valid message")
-                IO.inspect({header, body})
+                case @action_mapper.get_action(header["action"]) do
+                    {:ok, module} ->
+                        action = Application.get_env(:nautilus, module)
+                        action.execute(header, body)
+                    _ ->
+                        :invalid
+                end
             _ ->
-                IO.puts("Invalid message")
                 :invalid
         end
-
-        #get action
-
-
-        #do action
     end
 
 end

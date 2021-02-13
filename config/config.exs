@@ -21,7 +21,7 @@ config :nautilus, :MessageGatewayToGateway, Nautilus
 # Message - Port module
 config :nautilus, :MessageActionPort, Nautilus.Ports.Message.MessageAction
 config :nautilus, :MessageSenderPort, Nautilus.Ports.Message.MessageSender
-config :nautilus, :MessageHandlerPort, Nautilus.Ports.Message.MessageHandler
+config :nautilus, :MessagePreparatorPort, Nautilus.Ports.Message.MessagePreparator
 
 
 
@@ -29,7 +29,7 @@ config :nautilus, :MessageHandlerPort, Nautilus.Ports.Message.MessageHandler
 config :nautilus, :TCPSender, Nautilus.Network.TCP.TCPSender
 config :nautilus, :TCPHandler, Nautilus.Network.TCP.TCPHandler
 config :nautilus, :TCPListener, Nautilus.Network.TCP.TCPListener
-config :nautilus, :NetworkMessagePreparator, Nautilus.Network.Message.NetworkMessagePreparator
+config :nautilus, :NetworkMessageHandler, Nautilus.Network.Message.NetworkMessageHandler
 
 
 
@@ -39,7 +39,7 @@ config :nautilus, :ActionMapper, Nautilus.Core.Action.ActionMapper
 
 
 # Message - Core module
-config :nautilus, :MessageHandler, Nautilus.Core.Message.MessageHandler
+config :nautilus, :MessagePreparator, Nautilus.Core.Message.MessagePreparator
 
 
 

@@ -1,14 +1,28 @@
-defmodule Nautilus.Network.Message.NetworkMessagePreparator do
+defmodule Nautilus.Core.Message.MessagePreparator do
 
-    @message_handler Application.get_env(:nautilus, :MessageHandler)
+    @behaviour Application.get_env(:nautilus, :MessagePreparatorPort)
+    @message_validator Application.get_env(:nautilus, :MessageValidator)
+    @action_mapper Application.get_env(:nautilus, :ActionMapper)
 
 
+    # needs refactor
     def prepare_message(message) do
         case split_message(message) do
             {header_string, body} ->
                 case split_header_fields(header_string) do
                     {:ok, header} ->
-                        @message_handler.handle_message(header, body)
+                        case @message_validator.validate_message(header, body) do
+                            {:valid, header, body} ->
+                                case @action_mapper.get_action(header["action"]) do
+                                    {:ok, module} ->
+                                        action = Application.get_env(:nautilus, module)
+                                        action.execute(header, body)
+                                    _ ->
+                                        :invalid
+                                end
+                            _ ->
+                                :invalid
+                        end
                     _ ->
                         :invalid
                 end

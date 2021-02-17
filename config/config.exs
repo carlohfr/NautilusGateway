@@ -22,6 +22,13 @@ config :nautilus, :MessageGatewayToGateway, Nautilus
 config :nautilus, :MessageActionPort, Nautilus.Ports.Message.MessageAction
 config :nautilus, :MessageSenderPort, Nautilus.Ports.Message.MessageSender
 config :nautilus, :MessagePreparatorPort, Nautilus.Ports.Message.MessagePreparator
+config :nautilus, :KeyValueBucketInterfacePort, Nautilus.Ports.KeyValue.KeyValueBucketInterface
+
+
+
+# Key_value - Adapter module
+config :nautilus, :KeyValueBucket, Nautilus.KeyValue.Bucket
+config :nautilus, :KeyValueBucketInterface, Nautilus.KeyValue.BucketInterface
 
 
 

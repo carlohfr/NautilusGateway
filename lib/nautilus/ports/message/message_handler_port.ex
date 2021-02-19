@@ -1,3 +1,3 @@
-defmodule Nautilus.Ports.Message.MessagePreparator do
-    @callback prepare_message(message :: any) :: any
+defmodule Nautilus.Ports.Message.MessageHandler do
+    @callback handle_message(header :: any, body :: any) :: any
 end

@@ -1,4 +1,4 @@
-defmodule Nautilus.Network.TCP.TCPListener do
+defmodule Nautilus.Network.TCPListener do
 
     use GenServer
     require Logger
@@ -13,7 +13,6 @@ defmodule Nautilus.Network.TCP.TCPListener do
 
 
     def init(:ok) do
-
         Logger.info("listener waiting for a connection on port: #{@listen_port}")
 
         opts = [port: @listen_port]

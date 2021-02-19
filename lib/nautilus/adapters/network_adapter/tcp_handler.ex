@@ -1,10 +1,10 @@
-defmodule Nautilus.Network.TCP.TCPHandler do
+defmodule Nautilus.Network.TCPHandler do
 
     use GenServer
     require Logger
 
     @behaviour :ranch_protocol
-    @network_message_handler Application.get_env(:nautilus, :NetworkMessageHandler)
+    @message_preparator Application.get_env(:nautilus, :MessagePreparator)
 
 
     def start_link(ref, socket, transport) do
@@ -28,7 +28,7 @@ defmodule Nautilus.Network.TCP.TCPHandler do
 
     def handle_info({:tcp, socket, message}, state = %{socket: socket, transport: _transport}) do
         IO.puts(message) #just for test, remove in final version
-        _pid = spawn(@network_message_handler, :handle_message, [message])
+        _pid = spawn(@message_preparator, :prepare_message, [message])
         {:noreply, state}
     end
 

@@ -6,48 +6,38 @@ use Mix.Config
 config :nautilus, :listen_port, 10000
 
 
-
-################################# ACTIONS #################################
-# Every module needs to implements action behaviour
-config :nautilus, :MessageClientToClient, Nautilus
-config :nautilus, :MessageClientToGateway, Nautilus
-config :nautilus, :MessageGatewayToClient, Nautilus
-config :nautilus, :MessageGatewayToGateway, Nautilus
-
-
-
-################################# MODULES #################################
+################################# Ports #################################
 
 # Message - Port module
 config :nautilus, :MessageActionPort, Nautilus.Ports.Message.MessageAction
 config :nautilus, :MessageSenderPort, Nautilus.Ports.Message.MessageSender
-config :nautilus, :MessagePreparatorPort, Nautilus.Ports.Message.MessagePreparator
+config :nautilus, :MessageHandlerPort, Nautilus.Ports.Message.MessageHandler
 config :nautilus, :KeyValueBucketInterfacePort, Nautilus.Ports.KeyValue.KeyValueBucketInterface
 
 
+################################# Adapters #################################
 
 # Key_value - Adapter module
 config :nautilus, :KeyValueBucket, Nautilus.KeyValue.Bucket
 config :nautilus, :KeyValueBucketInterface, Nautilus.KeyValue.BucketInterface
 
 
-
 # Network - Adapter module
-config :nautilus, :TCPSender, Nautilus.Network.TCP.TCPSender
-config :nautilus, :TCPHandler, Nautilus.Network.TCP.TCPHandler
-config :nautilus, :TCPListener, Nautilus.Network.TCP.TCPListener
-config :nautilus, :NetworkMessageHandler, Nautilus.Network.Message.NetworkMessageHandler
+config :nautilus, :TCPSender, Nautilus.Network.TCPSender
+config :nautilus, :TCPHandler, Nautilus.Network.TCPHandler
+config :nautilus, :TCPListener, Nautilus.Network.TCPListener
+config :nautilus, :MessagePreparator, Nautilus.Network.MessagePreparator
 
 
+################################# Core #################################
 
-# Action - Core module
-config :nautilus, :ActionMapper, Nautilus.Core.Action.ActionMapper
+# Actions - Core module - Every module needs to implements action behaviour
+config :nautilus, :SayHi, Nautilus.Core.Actions.SayHi
 
 
-
-# Message - Core module
-config :nautilus, :MessagePreparator, Nautilus.Core.Message.MessagePreparator
-
+# EntryPoint - Core module
+config :nautilus, :ActionMapper, Nautilus.Core.EntryPoint.ActionMapper
+config :nautilus, :MessageHandler, Nautilus.Core.EntryPoint.MessageHandler
 
 
 # Validators - Core module
@@ -57,5 +47,6 @@ config :nautilus, :MessageHeaderValidator, Nautilus.Core.Validators.MessageValid
 config :nautilus, :MessageHeaderSyntaxValidator, Nautilus.Core.Validators.MessageValidator.Header.MessageHeaderSyntaxValidator
 
 
+########################################################################
 
 import_config "#{Mix.env()}.exs"

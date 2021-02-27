@@ -18,8 +18,8 @@ sock.connect(ADDR)
 
 data = data.encode("utf-8")
 
-for x in range(1, 10):
-    time.sleep(5)
+for x in range(1, 5):
+    time.sleep(2)
     sock.send(data)
 
 #response = sock.recv(BUF_SIZE)

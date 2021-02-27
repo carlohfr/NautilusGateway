@@ -28,7 +28,7 @@ defmodule Nautilus.Network.TCPHandler do
 
     def handle_info({:tcp, socket, message}, state = %{socket: socket, transport: _transport}) do
         IO.puts(message) #just for test, remove in final version
-        _pid = spawn(@message_preparator, :prepare_message, [message])
+        _pid = spawn(@message_preparator, :prepare_message, [self(), message])
         {:noreply, state}
     end
 

@@ -3,12 +3,12 @@ defmodule Nautilus.Network.MessagePreparator do
     @message_handler Application.get_env(:nautilus, :MessageHandler)
 
 
-    def prepare_message(message) do
+    def prepare_message(pid, message) do
         case split_message(message) do
             {header_string, body} ->
                 case split_header_fields(header_string) do
                     {:ok, header} ->
-                        @message_handler.handle_message(header, body)
+                        @message_handler.handle_message(pid, header, body)
                     _ ->
                         :invalid
                 end

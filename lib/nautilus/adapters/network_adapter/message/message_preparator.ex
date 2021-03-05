@@ -1,4 +1,4 @@
-defmodule Nautilus.Network.MessagePreparator do
+defmodule Nautilus.Network.Message.MessagePreparator do
 
     @message_handler Application.get_env(:nautilus, :MessageHandler)
 
@@ -8,7 +8,8 @@ defmodule Nautilus.Network.MessagePreparator do
             {header_string, body} ->
                 case split_header_fields(header_string) do
                     {:ok, header} ->
-                        @message_handler.handle_message(pid, header, body)
+                        message = Map.put(header, "content", body)
+                        @message_handler.handle_message(pid, message)
                     _ ->
                         :invalid
                 end

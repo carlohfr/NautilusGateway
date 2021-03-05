@@ -1,0 +1,40 @@
+defmodule Nautilus.Core.Registry.ClientRegistry do
+
+    @key_value_adapter Application.get_env(:nautilus, :KeyValueBucketInterface)
+
+
+    def register_client(client_id, client_info) do
+        case @key_value_adapter.set({client_id, client_info}) do
+            :ok ->
+                {:ok, :registered}
+            _ ->
+                {:error, :non_registered}
+        end
+    end
+
+
+    def unregister_client(client_id) do
+        @key_value_adapter.delete(client_id)
+    end
+
+
+    def get_client_info(client_id) do
+       @key_value_adapter.get(client_id)
+    end
+
+
+    def get_all_clients do
+        @key_value_adapter.get_all()
+    end
+
+
+    def generate_client_id do
+        uuid = UUID.uuid4()
+        |> String.split("-")
+        |> List.to_string()
+        |> String.upcase()
+
+        {:ok, uuid}
+    end
+
+end

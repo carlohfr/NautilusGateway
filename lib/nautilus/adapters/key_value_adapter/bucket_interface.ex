@@ -4,7 +4,12 @@ defmodule Nautilus.KeyValue.BucketInterface do
 
 
     def set({key, value}) do
-        GenServer.call(:bucket, {:set, {key, value}})
+        case get(key) do
+            :error ->
+                GenServer.call(:bucket, {:set, {key, value}})
+            _ ->
+                {:ok, :key_already_exists}
+        end
     end
 
 

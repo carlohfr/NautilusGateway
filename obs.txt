@@ -1,0 +1,10 @@
+
+Próximos passos:
+- refazer diagrama do message validator
+- Adicionar actions
+- Criar a CLI 
+- Criar a interface com o cluster
+
+
+Alguns problemas:
+- O client não esta sendo informado sobre o tamanho da mensagem

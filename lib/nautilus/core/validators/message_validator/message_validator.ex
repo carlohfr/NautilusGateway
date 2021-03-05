@@ -1,20 +1,20 @@
 defmodule Nautilus.Core.Validators.MessageValidator.MessageValidator do
 
-    @message_header_validator Application.get_env(:nautilus, :MessageHeaderValidator)
-    @message_body_validator Application.get_env(:nautilus, :MessageBodyValidator)
+    @syntax_validator Application.get_env(:nautilus, :MessageSyntaxValidator)
+    @content_size_validator Application.get_env(:nautilus, :MessageContentSizeValidator)
 
 
-    def validate_message(header, body) do
-        case @message_header_validator.validate_header(header) do
-            {:valid, header} ->
-                case @message_body_validator.validate_body(header, body) do
-                    {:valid, body} ->
-                        {:valid, header, body}
+    def validate_message(message) do
+        case @syntax_validator.validate_message_syntax(message) do
+            {:valid, _} ->
+                case @content_size_validator.validate_content_size(message) do
+                    {:valid, _} ->
+                        {:valid, message}
                     _ ->
-                        {:invalid, :body_fail}
+                        {:invalid, :content_size_fail}
                 end
             _ ->
-                {:invalid, :header_fail}
+                {:invalid, :syntax_fail}
         end
     end
 

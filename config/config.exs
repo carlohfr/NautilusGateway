@@ -14,10 +14,11 @@ config :nautilus, :KeyValueBucketInterface, Nautilus.KeyValue.BucketInterface
 
 
 # Network - Adapter module
-config :nautilus, :TCPSender, Nautilus.Network.TCPSender
-config :nautilus, :TCPHandler, Nautilus.Network.TCPHandler
-config :nautilus, :TCPListener, Nautilus.Network.TCPListener
-config :nautilus, :MessagePreparator, Nautilus.Network.MessagePreparator
+config :nautilus, :TCPSender, Nautilus.Network.TCP.TCPSender
+config :nautilus, :TCPHandler, Nautilus.Network.TCP.TCPHandler
+config :nautilus, :TCPListener, Nautilus.Network.TCP.TCPListener
+config :nautilus, :MessageMaker, Nautilus.Network.Message.MessageMaker
+config :nautilus, :MessagePreparator, Nautilus.Network.Message.MessagePreparator
 
 
 ################################# Ports #################################
@@ -33,18 +34,22 @@ config :nautilus, :KeyValueBucketInterfacePort, Nautilus.Ports.KeyValue.KeyValue
 
 # Actions - Core module - Every module needs to implements action behaviour
 config :nautilus, :SayHi, Nautilus.Core.Actions.SayHi
+config :nautilus, :RegisterClient, Nautilus.Core.Actions.RegisterClient
 
 
-# EntryPoint - Core module
+# Endpoint - Core module
 config :nautilus, :ActionMapper, Nautilus.Core.Endpoint.ActionMapper
 config :nautilus, :MessageHandler, Nautilus.Core.Endpoint.MessageHandler
 
 
+# Registry - Core module
+config :nautilus, :ClientRegistry, Nautilus.Core.Registry.ClientRegistry
+
+
 # Validators - Core module
 config :nautilus, :MessageValidator, Nautilus.Core.Validators.MessageValidator.MessageValidator
-config :nautilus, :MessageBodyValidator, Nautilus.Core.Validators.MessageValidator.Body.MessageBodyValidor
-config :nautilus, :MessageHeaderValidator, Nautilus.Core.Validators.MessageValidator.Header.MessageHeaderValidator
-config :nautilus, :MessageHeaderSyntaxValidator, Nautilus.Core.Validators.MessageValidator.Header.MessageHeaderSyntaxValidator
+config :nautilus, :MessageSyntaxValidator, Nautilus.Core.Validators.MessageValidator.MessageSyntaxValidator
+config :nautilus, :MessageContentSizeValidator, Nautilus.Core.Validators.MessageValidator.MessageContentSizeValidator
 
 
 ########################################################################

@@ -1,4 +1,0 @@
-
-- Adicionar actions
-- Criar a CLI 
-- Criar a interface com o cluster

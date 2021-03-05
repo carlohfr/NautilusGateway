@@ -21,7 +21,8 @@ defmodule Nautilus.MixProject do
 
     defp deps do
         [
-            {:ranch, "~> 2.0"}
+            {:ranch, "~> 2.0"},
+            {:uuid, "~> 1.1"}
         ]
     end
 

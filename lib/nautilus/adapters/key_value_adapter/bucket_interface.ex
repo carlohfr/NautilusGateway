@@ -1,4 +1,4 @@
-defmodule Nautilus.KeyValue.BucketInterface do
+defmodule Nautilus.Adapters.KeyValue.BucketInterface do
 
     @behaviour Application.get_env(:nautilus, :KeyValueBucketInterfacePort)
 

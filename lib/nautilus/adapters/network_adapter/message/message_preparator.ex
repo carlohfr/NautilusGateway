@@ -1,4 +1,4 @@
-defmodule Nautilus.Network.Message.MessagePreparator do
+defmodule Nautilus.Adapters.Network.Message.MessagePreparator do
 
     @message_handler Application.get_env(:nautilus, :MessageHandler)
 

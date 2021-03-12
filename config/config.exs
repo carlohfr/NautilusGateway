@@ -3,7 +3,7 @@ use Mix.Config
 
 ################################# GENERAL #################################
 
-config :nautilus, :env, :prod  #:prod, :dev, :test
+config :nautilus, :env, :dev  #:prod, :dev, :test
 config :nautilus, :listen_port, 10000
 config :nautilus, :hostname_api_url, 'http://api.ipify.org'
 
@@ -11,20 +11,20 @@ config :nautilus, :hostname_api_url, 'http://api.ipify.org'
 ################################# Adapters #################################
 
 # Key_value - Adapter module
-config :nautilus, :KeyValueBucket, Nautilus.KeyValue.Bucket
-config :nautilus, :KeyValueBucketInterface, Nautilus.KeyValue.BucketInterface
+config :nautilus, :KeyValueBucket, Nautilus.Adapters.KeyValue.Bucket
+config :nautilus, :KeyValueBucketInterface, Nautilus.Adapters.KeyValue.BucketInterface
 
 
 # Network - Adapter module
-config :nautilus, :TCPSender, Nautilus.Network.TCP.TCPSender
-config :nautilus, :TCPHandler, Nautilus.Network.TCP.TCPHandler
-config :nautilus, :TCPListener, Nautilus.Network.TCP.TCPListener
-config :nautilus, :MessageMaker, Nautilus.Network.Message.MessageMaker
-config :nautilus, :MessagePreparator, Nautilus.Network.Message.MessagePreparator
+config :nautilus, :TCPSender, Nautilus.Adapters.Network.TCP.TCPSender
+config :nautilus, :TCPHandler, Nautilus.Adapters.Network.TCP.TCPHandler
+config :nautilus, :TCPListener, Nautilus.Adapters.Network.TCP.TCPListener
+config :nautilus, :MessageMaker, Nautilus.Adapters.Network.Message.MessageMaker
+config :nautilus, :MessagePreparator, Nautilus.Adapters.Network.Message.MessagePreparator
 
 
 # Utils - Adapter module
-config :nautilus, :GetHostname, Nautilus.Utils.GetHostname
+config :nautilus, :GetHostname, Nautilus.Adapters.Utils.GetHostname
 
 
 ################################# Ports #################################

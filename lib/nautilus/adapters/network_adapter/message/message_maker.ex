@@ -1,4 +1,4 @@
-defmodule Nautilus.Network.Message.MessageMaker do
+defmodule Nautilus.Adapters.Network.Message.MessageMaker do
 
     @behaviour Application.get_env(:nautilus, :MessageMakerPort)
 

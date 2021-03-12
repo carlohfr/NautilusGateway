@@ -1,4 +1,4 @@
-defmodule Nautilus.KeyValue.Bucket do
+defmodule Nautilus.Adapters.KeyValue.Bucket do
 
     use GenServer
 

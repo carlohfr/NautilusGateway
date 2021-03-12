@@ -1,4 +1,4 @@
-defmodule Nautilus.Network.TCP.TCPSender do
+defmodule Nautilus.Adapters.Network.TCP.TCPSender do
 
     @behaviour Application.get_env(:nautilus, :MessageSenderPort)
 

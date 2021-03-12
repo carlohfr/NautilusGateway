@@ -1,4 +1,4 @@
-defmodule Nautilus.Network.TCP.TCPHandler do
+defmodule Nautilus.Adapters.Network.TCP.TCPHandler do
 
     use GenServer
     require Logger

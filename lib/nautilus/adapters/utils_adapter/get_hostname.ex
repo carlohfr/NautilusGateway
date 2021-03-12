@@ -1,4 +1,4 @@
-defmodule Nautilus.Utils.GetHostname do
+defmodule Nautilus.Adapters.Utils.GetHostname do
 
     @behaviour Application.get_env(:nautilus, :GetHostnamePort)
     @port Application.get_env(:nautilus, :listen_port)

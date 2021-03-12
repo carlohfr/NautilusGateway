@@ -1,7 +1,6 @@
 
 Próximos passos:
 
-- Refazer a parte de registro do client (mudar a forma de atribuir um ID), refatorar 
 - Documentar com ExDoc
 
 

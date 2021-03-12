@@ -2,8 +2,10 @@ use Mix.Config
 
 
 ################################# GENERAL #################################
-# Connection ports
+
+config :nautilus, :env, :prod  #:prod, :dev, :test
 config :nautilus, :listen_port, 10000
+config :nautilus, :hostname_api_url, 'http://api.ipify.org'
 
 
 ################################# Adapters #################################
@@ -21,13 +23,25 @@ config :nautilus, :MessageMaker, Nautilus.Network.Message.MessageMaker
 config :nautilus, :MessagePreparator, Nautilus.Network.Message.MessagePreparator
 
 
+# Utils - Adapter module
+config :nautilus, :GetHostname, Nautilus.Utils.GetHostname
+
+
 ################################# Ports #################################
 
 # Message - Port module
 config :nautilus, :MessageActionPort, Nautilus.Ports.Message.MessageAction
 config :nautilus, :MessageSenderPort, Nautilus.Ports.Message.MessageSender
 config :nautilus, :MessageHandlerPort, Nautilus.Ports.Message.MessageHandler
+config :nautilus, :MessageMakerPort, Nautilus.Ports.Message.MessageMaker
+
+
+# Key_value - Port module
 config :nautilus, :KeyValueBucketInterfacePort, Nautilus.Ports.KeyValue.KeyValueBucketInterface
+
+
+# Utils - Port module
+config :nautilus, :GetHostnamePort, Nautilus.Ports.Utils.GetHostname
 
 
 ################################# Core #################################

@@ -1,10 +1,15 @@
 
 Próximos passos:
-- refazer diagrama do message validator
-- Adicionar actions
-- Criar a CLI 
-- Criar a interface com o cluster
+
+- Refazer a parte de registro do client (mudar a forma de atribuir um ID), refatorar 
+- Documentar com ExDoc
+
+
+---
+Iniciar o programa com um sequencia de operações para captar var importantes que podem ser modificadas, para então salvar no Key value?
+No código então seria referenciado o key value, isso permitiria mudar algumas configs on fly 
+---
 
 
 Alguns problemas:
-- O client não esta sendo informado sobre o tamanho da mensagem
+- O client não esta sendo informado sobre o tamanho da mensagem (Talvez gere alguns problemas no futuro)

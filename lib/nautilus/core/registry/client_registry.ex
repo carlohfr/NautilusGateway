@@ -1,8 +1,16 @@
 defmodule Nautilus.Core.Registry.ClientRegistry do
 
+    @moduledoc """
+    This module is responsible for register a new client into the gateway
+    """
+
     @key_value_adapter Application.get_env(:nautilus, :KeyValueBucketInterface)
+    @get_hostname Application.get_env(:nautilus, :GetHostname)
 
 
+    @doc """
+    This function is responsible for call key value adapter and save client info
+    """
     def register_client(client_id, client_info) do
         case @key_value_adapter.set({client_id, client_info}) do
             :ok ->
@@ -34,7 +42,10 @@ defmodule Nautilus.Core.Registry.ClientRegistry do
         |> List.to_string()
         |> String.upcase()
 
-        {:ok, uuid}
+        {_, hostname} = @get_hostname.get_hostname()
+        id = "#{uuid}@#{hostname}"
+        IO.inspect(id)
+        {:ok, id}
     end
 
 end

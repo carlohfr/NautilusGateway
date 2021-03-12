@@ -1,11 +1,18 @@
 defmodule Nautilus do
 
+    @moduledoc """
+    This module is the main module and starts others modules
+    """
+
     use Application
 
     @tcp_listener Application.get_env(:nautilus, :TCPListener)
     @key_value_bucket Application.get_env(:nautilus, :KeyValueBucket)
 
 
+    @doc """
+    This function will start all main children processes
+    """
     def start(_type, _args) do
 
         children = [

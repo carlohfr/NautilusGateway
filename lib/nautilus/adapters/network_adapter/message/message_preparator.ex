@@ -1,8 +1,15 @@
 defmodule Nautilus.Adapters.Network.Message.MessagePreparator do
 
+    @moduledoc """
+    This module is responsible for transforming message received to a map() and send to core
+    """
+
     @message_handler Application.get_env(:nautilus, :MessageHandler)
 
 
+    @doc """
+    This function will control all steps of message preparation
+    """
     def prepare_message(pid, message) do
         case split_message(message) do
             {header_string, body} ->
@@ -19,6 +26,7 @@ defmodule Nautilus.Adapters.Network.Message.MessagePreparator do
     end
 
 
+    # This function will split the message in two parts (header and body)
     defp split_message(message) do
         case :binary.match(message, ["\r\n\r\n"]) do
             {start, length} ->
@@ -31,6 +39,7 @@ defmodule Nautilus.Adapters.Network.Message.MessagePreparator do
     end
 
 
+    # This function will split the header fields of a message
     defp split_header_fields(header_string) do
         case String.contains?(header_string, ["\r\n", ": "]) do
             true ->

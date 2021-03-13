@@ -21,21 +21,33 @@ defmodule Nautilus.Core.Registry.ClientRegistry do
     end
 
 
+    @doc """
+    This function is responsible for call key value adapter and delete client info
+    """
     def unregister_client(client_id) do
         @key_value_adapter.delete(client_id)
     end
 
 
+    @doc """
+    This function is responsible for call key value adapter and get client info
+    """
     def get_client_info(client_id) do
        @key_value_adapter.get(client_id)
     end
 
 
+    @doc """
+    This function is responsible for call key value adapter and get all clients info
+    """
     def get_all_clients do
         @key_value_adapter.get_all()
     end
 
 
+    @doc """
+    This function is responsible for generate a client id
+    """
     def generate_client_id do
         uuid = UUID.uuid4()
         |> String.split("-")

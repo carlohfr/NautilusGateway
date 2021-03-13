@@ -1,7 +1,7 @@
-
 Próximos passos:
+- Documentar core 
+- Documentar ports 
 
-- Documentar com ExDoc
 
 
 ---
@@ -10,5 +10,5 @@ No código então seria referenciado o key value, isso permitiria mudar algumas 
 ---
 
 
-Alguns problemas:
+Alguns possíveis problemas:
 - O client não esta sendo informado sobre o tamanho da mensagem (Talvez gere alguns problemas no futuro)

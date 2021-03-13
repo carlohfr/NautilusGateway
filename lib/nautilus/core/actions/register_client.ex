@@ -1,12 +1,18 @@
 defmodule Nautilus.Core.Actions.RegisterClient do
 
+    @moduledoc """
+    This module is an action module for register a client
+    """
+
     @behaviour Application.get_env(:nautilus, :MessageActionPort)
     @tcp_sender Application.get_env(:nautilus, :TCPSender)
     @message_maker Application.get_env(:nautilus, :MessageMaker)
     @client_registry Application.get_env(:nautilus, :ClientRegistry)
 
 
-    # This function will try to register the client. Then return id on success else return "ERROR"
+    @doc """
+    This function will try to register the client. Then return id on success else return "ERROR"
+    """
     def execute(pid, message) do
         {_, id} = @client_registry.generate_client_id
 

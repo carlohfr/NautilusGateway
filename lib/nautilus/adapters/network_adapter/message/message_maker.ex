@@ -15,4 +15,13 @@ defmodule Nautilus.Adapters.Network.Message.MessageMaker do
         {:ok, message}
     end
 
+
+    @doc """
+    This function will make a client message
+    """
+    def make_client_message(message) do
+        message = "version: " <> message["version"] <> "\r\nto: " <> message["to"] <> "\r\nfrom: " <> message["from"] <> "\r\naction: " <> message["action"] <> "\r\ntype: " <> message["type"] <> "\r\nbody-size: " <> message["body-size"] <> "\r\n\r\n" <>  message["content"]
+        {:ok, message}
+    end
+
 end

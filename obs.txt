@@ -3,6 +3,13 @@ Próximos passos:
 
 
 
+send-to-client passos:
+# validar o client remetente (se esta conectado ou nao)
+# buscar o client destinatário no registro
+# montar a mensagem
+# enviar a mensagem
+
+
 ---
 Iniciar o programa com um sequencia de operações para captar var importantes que podem ser modificadas, para então salvar no Key value?
 No código então seria referenciado o key value, isso permitiria mudar algumas configs on fly 

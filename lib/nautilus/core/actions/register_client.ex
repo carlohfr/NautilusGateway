@@ -37,7 +37,6 @@ defmodule Nautilus.Core.Actions.RegisterClient do
 
         {_, hostname} = @get_hostname.get_hostname()
         id = "#{uuid}@#{hostname}"
-        IO.inspect(id)
         {:ok, id}
     end
 

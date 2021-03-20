@@ -43,7 +43,6 @@ defmodule Nautilus.Adapters.Network.TCP.TCPHandler do
     This function will receive the incoming message
     """
     def handle_info({:tcp, socket, message}, state = %{socket: socket, transport: _transport}) do
-        IO.puts(message) #just for test, remove in final version
         _pid = spawn(@message_preparator, :prepare_message, [self(), message])
         {:noreply, state}
     end

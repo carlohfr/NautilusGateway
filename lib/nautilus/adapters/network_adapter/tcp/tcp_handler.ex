@@ -1,6 +1,6 @@
 defmodule Nautilus.Adapters.Network.TCP.TCPHandler do
 
-    @doc """
+    @moduledoc """
     This module is responsible for handle the tcp connection with a client
     """
 

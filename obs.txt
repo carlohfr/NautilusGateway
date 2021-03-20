@@ -1,6 +1,5 @@
 Próximos passos:
-- Documentar core 
-- Documentar ports 
+- Projetar e construir a funcionalidade de enviar mensagens entre clients.
 
 
 

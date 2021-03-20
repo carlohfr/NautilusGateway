@@ -48,15 +48,12 @@ config :nautilus, :GetHostnamePort, Nautilus.Ports.Utils.GetHostname
 
 # Actions - Core module - Every module needs to implements action behaviour
 config :nautilus, :RegisterClient, Nautilus.Core.Actions.RegisterClient
+config :nautilus, :SendToClient, Nautilus.Core.Actions.SendToClient
 
 
 # Endpoint - Core module
 config :nautilus, :ActionMapper, Nautilus.Core.Endpoint.ActionMapper
 config :nautilus, :MessageHandler, Nautilus.Core.Endpoint.MessageHandler
-
-
-# Registry - Core module
-config :nautilus, :ClientRegistry, Nautilus.Core.Registry.ClientRegistry
 
 
 # Validators - Core module

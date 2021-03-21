@@ -14,22 +14,13 @@ defmodule Nautilus.Core.Actions.SendToClient do
     This function will try to send message to a client.
     """
     def execute(pid, message) do
-        case @key_value_adapter.get(message["from"]) do
-            {:ok, client_info} ->
-                case client_info[:pid] == pid do
-                    true ->
-                        case @key_value_adapter.get(message["to"]) do
-                            {:ok, client_info} ->
-                                {_, message} = @message_maker.make_client_message(message)
-                                @tcp_sender.send_message(client_info[:pid], message)
-                            _ ->
-                                {:error, :invaliddest}
-                        end
-                    _ ->
-                        {:error, :invalidpid}
-                end
+        with {:ok, client_info} <- @key_value_adapter.get(message["from"]), true <- client_info[:pid] == pid,
+        {:ok, client_info} <- @key_value_adapter.get(message["to"]) do
+            {_, message} = @message_maker.make_client_message(message)
+            @tcp_sender.send_message(client_info[:pid], message)
+        else
             _ ->
-                {:error, :invalidclient}
+                {:error, :actionfail}
         end
     end
 

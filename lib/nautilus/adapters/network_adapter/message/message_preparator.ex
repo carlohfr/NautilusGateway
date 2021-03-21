@@ -11,17 +11,12 @@ defmodule Nautilus.Adapters.Network.Message.MessagePreparator do
     This function will control all steps of message preparation
     """
     def prepare_message(pid, message) do
-        case split_message(message) do
-            {header_string, body} ->
-                case split_header_fields(header_string) do
-                    {:ok, header} ->
-                        message = Map.put(header, "content", body)
-                        @message_handler.handle_message(pid, message)
-                    _ ->
-                        :invalid
-                end
+        with {header_string, body} <- split_message(message), {:ok, header} <- split_header_fields(header_string) do
+            message = Map.put(header, "content", body)
+            @message_handler.handle_message(pid, message)
+        else
             _ ->
-                :invalid
+                {:error, :invalid}
         end
     end
 

@@ -21,7 +21,7 @@ return_message = return_message[1]
 
 time.sleep(1)
 
-sendC = f"version: 1.0\r\nto: 0A9B9D242AD04880B732A08F520A457B@127.0.0.1:10000\r\nfrom: {return_message}\r\naction: send-to-client\r\ntype: type/filetype\r\nbody-size: 14\r\n\r\ncontent\r\n\r\nend"
+sendC = f"version: 1.0\r\nto: 87C942089F30410ABA8A623B474C28A6@127.0.0.1:10000\r\nfrom: {return_message}\r\naction: send-to-client\r\ntype: type/filetype\r\nbody-size: 14\r\n\r\ncontent\r\n\r\nend"
 sendC = sendC.encode("utf-8")
 sock.send(sendC)
 

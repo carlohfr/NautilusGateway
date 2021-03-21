@@ -10,7 +10,7 @@ defmodule Nautilus.Core.Validators.MessageValidator.MessageContentSizeValidator 
     def validate_content_size(message) do
         case Map.has_key?(message, "body-size") do
             :true ->
-                size_int = message["body-size"] |> String.to_integer()
+                size_int = String.to_integer(message["body-size"])
 
                 case size_int == byte_size(message["content"]) do
                     :true ->

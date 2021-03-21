@@ -12,14 +12,10 @@ defmodule Nautilus.Core.Validators.MessageValidator.MessageSyntaxValidator do
             :true ->
                 version = message["version"]
 
-                case get_header_fields(version) do
-                    {:ok, fields} ->
-                        case validate_fields(fields, message) do
-                            {:valid, _} ->
-                                {:valid, message}
-                            _ ->
-                                {:invalid, message}
-                        end
+                with {:ok, fields} <- get_header_fields(version),
+                {:valid, _} <- validate_fields(fields, message) do
+                    {:valid, message}
+                else
                     _ ->
                         {:invalid, message}
                 end

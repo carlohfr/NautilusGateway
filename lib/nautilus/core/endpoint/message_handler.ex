@@ -13,17 +13,13 @@ defmodule Nautilus.Core.Endpoint.MessageHandler do
     This function will handle a message
     """
     def handle_message(pid, message) do
-        case @message_validator.validate_message(message) do
-            {:valid, _} ->
-                case @action_mapper.get_action(message["action"]) do
-                    {:ok, module} ->
-                        action = Application.get_env(:nautilus, module)
-                        action.execute(pid, message)
-                    _ ->
-                        {:error, :no_action}
-                end
+        with {:valid, _} <- @message_validator.validate_message(message),
+        {:ok, module} <- @action_mapper.get_action(message["action"]) do
+            action = Application.get_env(:nautilus, module)
+            action.execute(pid, message)
+        else
             _ ->
-                {:error, :invalid_message}
+                {:error, :invalid}
         end
     end
 

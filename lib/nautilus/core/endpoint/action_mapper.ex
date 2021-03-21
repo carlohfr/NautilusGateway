@@ -7,7 +7,6 @@ defmodule Nautilus.Core.Endpoint.ActionMapper do
     @doc """
     This function receive a action and return module name
     """
-
     def get_action("register-client"), do: {:ok, :RegisterClient}
     def get_action("send-to-client"), do: {:ok, :SendToClient}
     def get_action(_), do: {:error, :no_action_found}

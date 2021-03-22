@@ -19,16 +19,20 @@ defmodule Nautilus.Core.Actions.RegisterClient do
 
         client_info =  %{:pid => pid, :type => :client}
 
-        case @key_value_adapter.set({id, client_info}) do
-            :ok ->
-                {_, message} = @message_maker.make_notify_message(message["version"], "gateway", id, id)
-                @tcp_sender.send_message(pid, message)
+        with true <- Process.alive?(pid), :ok <- @key_value_adapter.set({id, client_info}) do
+            {_, message} = @message_maker.make_notify_message(message["version"], "gateway", id, id)
+            @tcp_sender.send_message(pid, message)
+        else
+            false ->
+                {:error, :invalidpid}
             _ ->
                 {_, message} = @message_maker.make_notify_message(message["version"], "gateway", id, "ERROR")
                 @tcp_sender.send_message(pid, message)
         end
     end
 
+
+    # This function will generate client id
     defp generate_client_id do
         uuid = UUID.uuid4()
         |> String.split("-")

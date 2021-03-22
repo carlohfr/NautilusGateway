@@ -11,7 +11,9 @@ defmodule Nautilus.Adapters.Network.TCP.TCPSender do
     This function will send a message to a client (pid is necessary)
     """
     def send_message(pid, message) do
-        GenServer.cast(pid, {:send_message, message})
+        with true <- Process.alive?(pid) do
+            GenServer.cast(pid, {:send_message, message})
+        end
     end
 
 end

@@ -15,7 +15,7 @@ defmodule Nautilus.Adapters.KeyValue.BucketInterface do
             :error ->
                 GenServer.call(:bucket, {:set, {key, value}})
             _ ->
-                {:ok, :key_already_exists}
+                {:error, :key_already_exists}
         end
     end
 

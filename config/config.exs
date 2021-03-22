@@ -57,6 +57,8 @@ config :nautilus, :MessageHandler, Nautilus.Core.Endpoint.MessageHandler
 
 
 # Validators - Core module
+config :nautilus, :ClientValidator, Nautilus.Core.Validators.ClientValidator.ClientValidator
+
 config :nautilus, :MessageValidator, Nautilus.Core.Validators.MessageValidator.MessageValidator
 config :nautilus, :MessageSyntaxValidator, Nautilus.Core.Validators.MessageValidator.MessageSyntaxValidator
 config :nautilus, :MessageContentSizeValidator, Nautilus.Core.Validators.MessageValidator.MessageContentSizeValidator

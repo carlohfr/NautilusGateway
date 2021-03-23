@@ -18,7 +18,7 @@ defmodule Nautilus.Core.Actions.SendToClient do
         with {:ok, _} <- @client_validator.validate_client(message["from"], pid),
         {:ok, client_info} <- @key_value_adapter.get(message["to"]),
         {:ok, _} <- @client_validator.validate_client(message["to"], client_info[:pid]) do
-            {_, message} = @message_maker.make_client_message(message)
+            {_, message} = @message_maker.make_message(message)
             @tcp_sender.send_message(client_info[:pid], message)
         else
             _ ->

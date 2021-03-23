@@ -14,19 +14,19 @@ defmodule Nautilus.Core.Actions.RegisterClient do
     @doc """
     This function will try to register the client. Then return id on success else return "ERROR"
     """
-    def execute(pid, message) do
+    def execute(pid, _message) do
         {_, id} = generate_client_id()
 
         client_info =  %{:pid => pid, :type => :client}
 
         with true <- Process.alive?(pid), :ok <- @key_value_adapter.set({id, client_info}) do
-            {_, message} = @message_maker.make_notify_message(message["version"], "gateway", id, id)
+            {_, message} = @message_maker.make_send_to_client_message("gateway", id, id)
             @tcp_sender.send_message(pid, message)
         else
             false ->
                 {:error, :invalidpid}
             _ ->
-                {_, message} = @message_maker.make_notify_message(message["version"], "gateway", id, "ERROR")
+                {_, message} = @message_maker.make_send_to_client_message("gateway", id, "ERROR")
                 @tcp_sender.send_message(pid, message)
         end
     end

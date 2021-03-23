@@ -5,14 +5,14 @@ defmodule Nautilus.Ports.Message.MessageMaker do
     """
 
     @doc """
-    This function will make a notify message
+    This function will make a message
     """
-    @callback make_notify_message(version :: String.t , from :: String.t , to :: String.t, content :: String.t) :: any
+    @callback make_message(message :: map()) :: any
 
 
     @doc """
-    This function will make a client message
+    This function will make a notify message
     """
-    @callback make_client_message(message :: map()) :: any
+    @callback make_send_to_client_message(from :: String.t , to :: String.t, content :: String.t) :: any
 
 end

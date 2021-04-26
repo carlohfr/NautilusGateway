@@ -10,6 +10,11 @@ config :nautilus, :hostname_api_url, 'http://api.ipify.org'
 
 ################################# Adapters #################################
 
+# Cluster - Adapter module
+config :nautilus, :ClusterManager, Nautilus.Adapters.Cluster.ClusterManager
+config :nautilus, :ClusterClient, Nautilus.Adapters.Cluster.ClusterClient
+
+
 # Key_value - Adapter module
 config :nautilus, :KeyValueBucket, Nautilus.Adapters.KeyValue.Bucket
 config :nautilus, :KeyValueBucketInterface, Nautilus.Adapters.KeyValue.BucketInterface
@@ -49,6 +54,7 @@ config :nautilus, :GetHostnamePort, Nautilus.Ports.Utils.GetHostname
 # Actions - Core module - Every module needs to implements action behaviour
 config :nautilus, :RegisterClient, Nautilus.Core.Actions.RegisterClient
 config :nautilus, :SendToClient, Nautilus.Core.Actions.SendToClient
+config :nautilus, :TestAction, Nautilus.Core.Actions.TestAction
 
 
 # Endpoint - Core module

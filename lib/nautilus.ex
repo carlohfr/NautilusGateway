@@ -8,7 +8,7 @@ defmodule Nautilus do
 
     @tcp_listener Application.get_env(:nautilus, :TCPListener)
     @key_value_bucket Application.get_env(:nautilus, :KeyValueBucket)
-
+    @cluster_manager Application.get_env(:nautilus, :ClusterManager)
 
     @doc """
     This function will start all main children processes
@@ -17,7 +17,8 @@ defmodule Nautilus do
 
         children = [
             {@key_value_bucket, []},
-            {@tcp_listener, []}
+            {@tcp_listener, []},
+            {@cluster_manager, []},
         ]
 
         opts = [strategy: :one_for_one, name: Nautilus.Supervisor]

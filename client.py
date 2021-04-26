@@ -18,8 +18,8 @@ return_message = return_message.decode("utf-8")
 return_message = return_message.split("\r\n\r\n")
 this_id = return_message[1]
 
-message = f"version: 1.0\r\nto: 7FCE781DA3B240A59708ACE823F0AD73@127.0.0.1:10000\r\nfrom: {this_id}\r\n"
-message += "action: send-to-client\r\ntype: text\r\nbody-size: 9\r\n\r\nOla mundo"
+message = f"version: 1.0\r\nto: A7070950E4BE4EF29FA6553211FD2ABB@127.0.0.1:10000\r\nfrom: {this_id}\r\n"
+message += "action: test-action\r\ntype: text\r\nbody-size: 9\r\n\r\nOla mundo"
 message = message.encode("utf-8")
 print(message)
 sock.send(message)

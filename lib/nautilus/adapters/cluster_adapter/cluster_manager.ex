@@ -1,5 +1,9 @@
 defmodule Nautilus.Adapters.Cluster.ClusterManager do
 
+    @moduledoc """
+    This module is responsible for managing all connections with remote gateways
+    """
+
     use GenServer
 
     @cluster_client Application.get_env(:nautilus, :ClusterClient)

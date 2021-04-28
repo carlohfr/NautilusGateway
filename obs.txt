@@ -1,8 +1,12 @@
 Próximos passos:
+- Criar a parte que envia a mensagem de registro remoto no cluster_client
+
+- Criar a action "register-gateway"
 - Criar uma biblioteca em python para auxiliar os testes
 
 
 Alguns possíveis problemas:
+- retirar o registro de dentro do cluster_client.ex 
 - O client não esta sendo informado sobre o tamanho da mensagem (Talvez gere alguns problemas no futuro)
 
 

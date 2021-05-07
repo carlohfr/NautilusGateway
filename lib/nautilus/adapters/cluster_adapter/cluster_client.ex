@@ -11,6 +11,7 @@ defmodule Nautilus.Adapters.Cluster.ClusterClient do
 
     @get_hostname Application.get_env(:nautilus, :GetHostname)
     @message_preparator Application.get_env(:nautilus, :MessagePreparator)
+    @cluster_credentials Application.get_env(:nautilus, :ClusterCredentials)
     @key_value_adapter Application.get_env(:nautilus, :KeyValueBucketInterface)
 
 
@@ -53,14 +54,17 @@ defmodule Nautilus.Adapters.Cluster.ClusterClient do
     def do_remote_register(ip, port) do
         to = "#{:inet.ntoa(ip)}:#{port}"
         {_, from} = @get_hostname.get_hostname()
-        network_name = "rede1"
-        network_password = "1q2w3e4r"
-        gateway_password = "1q2w3e4r"
-        content = "network-name: #{network_name}\r\nnetwork-password: #{network_password}\r\ngateway-password: #{gateway_password}"
-        message = "version: 1.0\r\nto: #{to}\r\nfrom: #{from}\r\naction: register-gateway\r\ntype: request\r\nbody-size: #{byte_size(content)}\r\n\r\n#{content}"
-        IO.inspect(message)
-        #GenServer.cast(self(), {:send_message, message})
-        {:ok, :registered}
+
+        case @cluster_credentials.get_network_credentials() do
+            {:ok, network_name, network_password, gateway_password} ->
+                content = "network-name: #{network_name}\r\nnetwork-password: #{network_password}\r\ngateway-password: #{gateway_password}"
+                message = "version: 1.0\r\nto: #{to}\r\nfrom: #{from}\r\naction: register-gateway\r\ntype: request\r\nbody-size: #{byte_size(content)}\r\n\r\n#{content}"
+                IO.inspect(message)
+                #GenServer.cast(self(), {:send_message, message})
+                {:ok, :registered}
+            _ ->
+                {:error, :register_fail}
+        end
     end
 
 

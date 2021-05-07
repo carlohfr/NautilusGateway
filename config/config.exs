@@ -11,8 +11,9 @@ config :nautilus, :hostname_api_url, 'http://api.ipify.org'
 ################################# Adapters #################################
 
 # Cluster - Adapter module
-config :nautilus, :ClusterManager, Nautilus.Adapters.Cluster.ClusterManager
 config :nautilus, :ClusterClient, Nautilus.Adapters.Cluster.ClusterClient
+config :nautilus, :ClusterManager, Nautilus.Adapters.Cluster.ClusterManager
+config :nautilus, :ClusterCredentials, Nautilus.Adapters.Cluster.ClusterCredentials
 
 
 # Key_value - Adapter module

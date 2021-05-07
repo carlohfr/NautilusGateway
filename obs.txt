@@ -1,7 +1,5 @@
 Próximos passos:
-- Colocar verificação de credenciais na action "register-gateway"
-- Criar a parte que envia a mensagem de registro remoto no cluster_client - puxar os nomes e senhas do key value
-
+- Criar o sistema de comandos entre gateways
 
 - Criar uma biblioteca em python para auxiliar os testes
 

@@ -53,9 +53,10 @@ config :nautilus, :GetHostnamePort, Nautilus.Ports.Utils.GetHostname
 ################################# Core #################################
 
 # Actions - Core module - Every module needs to implements action behaviour
+config :nautilus, :SendToClient, Nautilus.Core.Actions.SendToClient
+config :nautilus, :SendToGateway, Nautilus.Core.Actions.SendToGateway
 config :nautilus, :RegisterClient, Nautilus.Core.Actions.RegisterClient
 config :nautilus, :RegisterGateway, Nautilus.Core.Actions.RegisterGateway
-config :nautilus, :SendToClient, Nautilus.Core.Actions.SendToClient
 config :nautilus, :TestAction, Nautilus.Core.Actions.TestAction
 
 

@@ -1,7 +1,11 @@
 Próximos passos:
+- Terminar a action "send-to-gateway"
 - Criar o sistema de comandos entre gateways
 
 - Criar uma biblioteca em python para auxiliar os testes
+
+- Salvar os dados da rede no key value 
+- Salvar os dados do gateway no key value
 
 
 Alguns possíveis problemas:

@@ -1,7 +1,16 @@
 use Mix.Config
 
 
-################################# GENERAL #################################
+################################## Network ##################################
+
+config :nautilus, :new_network, false
+config :nautilus, :network_name, "rede1"
+config :nautilus, :gateway_password, "pass"
+config :nautilus, :network_password, "1q2w3e4r"
+config :nautilus, :remote_gateways, [{"127.0.0.1", 20000}, {"127.0.0.1", 30000}]
+
+
+################################## General ##################################
 
 config :nautilus, :env, :dev  #:prod, :dev, :test
 config :nautilus, :listen_port, 10000
@@ -67,7 +76,6 @@ config :nautilus, :MessageHandler, Nautilus.Core.Endpoint.MessageHandler
 
 # Validators - Core module
 config :nautilus, :ClientValidator, Nautilus.Core.Validators.ClientValidator.ClientValidator
-
 config :nautilus, :MessageValidator, Nautilus.Core.Validators.MessageValidator.MessageValidator
 config :nautilus, :MessageSyntaxValidator, Nautilus.Core.Validators.MessageValidator.MessageSyntaxValidator
 config :nautilus, :MessageContentSizeValidator, Nautilus.Core.Validators.MessageValidator.MessageContentSizeValidator

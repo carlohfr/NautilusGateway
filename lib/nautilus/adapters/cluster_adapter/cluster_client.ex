@@ -55,16 +55,12 @@ defmodule Nautilus.Adapters.Cluster.ClusterClient do
         to = "#{:inet.ntoa(ip)}:#{port}"
         {_, from} = @get_hostname.get_hostname()
 
-        case @cluster_credentials.get_network_credentials() do
-            {:ok, network_name, network_password, gateway_password} ->
-                content = "network-name: #{network_name}\r\nnetwork-password: #{network_password}\r\ngateway-password: #{gateway_password}"
-                message = "version: 1.0\r\nto: #{to}\r\nfrom: #{from}\r\naction: register-gateway\r\ntype: request\r\nbody-size: #{byte_size(content)}\r\n\r\n#{content}"
-                IO.inspect(message)
-                #GenServer.cast(self(), {:send_message, message})
-                {:ok, :registered}
-            _ ->
-                {:error, :register_fail}
-        end
+        {_, network_name, network_password, gateway_password} = @cluster_credentials.get_network_credentials()
+        content = "network-name: #{network_name}\r\nnetwork-password: #{network_password}\r\ngateway-password: #{gateway_password}"
+        message = "version: 1.0\r\nto: #{to}\r\nfrom: #{from}\r\naction: register-gateway\r\ntype: request\r\nbody-size: #{byte_size(content)}\r\n\r\n#{content}"
+        IO.inspect(message)
+        #GenServer.cast(self(), {:send_message, message})
+        {:ok, :registered}
     end
 
 

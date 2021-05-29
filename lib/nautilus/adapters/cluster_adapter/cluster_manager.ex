@@ -14,8 +14,14 @@ defmodule Nautilus.Adapters.Cluster.ClusterManager do
 
 
     def init(state) do
-        connect_to_gateway({127, 0, 0, 1}, 20000)
-        {:ok, state}
+        case Application.get_env(:nautilus, :new_network) do
+            false ->
+                # pegar cada um dos gateways e chamar a função para a conexão
+                connect_to_gateway({127, 0, 0, 1}, 20000)
+                {:ok, state}
+            _ ->
+                {:ok, state}
+        end
     end
 
 

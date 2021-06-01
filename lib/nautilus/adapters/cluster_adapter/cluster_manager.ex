@@ -16,8 +16,8 @@ defmodule Nautilus.Adapters.Cluster.ClusterManager do
     def init(state) do
         case Application.get_env(:nautilus, :new_network) do
             false ->
-                # pegar cada um dos gateways e chamar a função para a conexão
-                connect_to_gateway({127, 0, 0, 1}, 20000)
+                remote_gateways = Application.get_env(:nautilus, :remote_gateways)
+                Enum.each(remote_gateways, fn gateway -> connect_to_gateway(elem(gateway, 0), elem(gateway, 1)) end)
                 {:ok, state}
             _ ->
                 {:ok, state}
@@ -26,7 +26,9 @@ defmodule Nautilus.Adapters.Cluster.ClusterManager do
 
 
     def connect_to_gateway(ip, port) do
-        _pid = spawn(@cluster_client, :start_link, [%{:ip => ip, :port => port}])
+        IO.inspect(ip)
+        IO.inspect(port)
+        #_pid = spawn(@cluster_client, :start_link, [%{:ip => ip, :port => port}])
         {:ok, :connected}
     end
 

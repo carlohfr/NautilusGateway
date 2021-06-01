@@ -15,6 +15,14 @@ Alguns possíveis problemas:
 - O client não esta sendo informado sobre o tamanho da mensagem (Talvez gere alguns problemas no futuro)
 
 
+Funcionamento do discovery:
+- Depois de conectado com os hosts iniciais o gateway deve pegar a lista de hosts conectados e iniciar o discovery
+para cada um deles (faz request de todos os hosts conectados), para cada host obtido nesse processo repetir
+o discovery(aplicar então o filtro de hosts ja contactados, assim todos os hosts seriam atingidos mas apenas uma vez)
+
+
+
+
 
 -- Actions -- 
 

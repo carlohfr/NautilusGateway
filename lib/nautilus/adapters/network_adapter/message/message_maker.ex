@@ -28,8 +28,8 @@ defmodule Nautilus.Adapters.Network.Message.MessageMaker do
     @doc """
     This function will make a send to gateway message
     """
-    def make_send_to_gateway_message(from, to, content) do
-        message = "version: 1.0\r\nto: #{to}\r\nfrom: #{from}\r\naction: send-to-gateway\r\ntype: text\r\nbody-size: #{byte_size(content)}\r\n\r\n#{content}"
+    def make_send_to_gateway_message(type, from, to, content) do
+        message = "version: 1.0\r\nto: #{to}\r\nfrom: #{from}\r\naction: send-to-gateway\r\ntype: #{type}\r\nbody-size: #{byte_size(content)}\r\n\r\n#{content}"
         {:ok, message}
     end
 

@@ -19,7 +19,7 @@ defmodule Nautilus.Adapters.Cluster.ClusterClient do
     This is the main function for the module, and is responsible for calling init() function passing ip and port of remote gateway
     """
     def start_link(connection_info) do
-        GenServer.start(__MODULE__, %{socket: nil, ip: connection_info[:ip], port: connection_info[:port]})
+        GenServer.start(__MODULE__, %{socket: nil, ip: connection_info[:ip], port: connection_info[:port], discovery: connection_info[:discovery]})
     end
 
 
@@ -27,7 +27,7 @@ defmodule Nautilus.Adapters.Cluster.ClusterClient do
     This function will starts the connection and do registration in both sides (locally and remotely)
     """
     def init(state) do
-        #GenServer.cast(self(), :connect)
+        GenServer.cast(self(), :connect)
         GenServer.cast(self(), :register)
         {:ok, state}
     end
@@ -58,8 +58,8 @@ defmodule Nautilus.Adapters.Cluster.ClusterClient do
         {_, network_name, network_password, gateway_password} = @cluster_credentials.get_network_credentials()
         content = "network-name: #{network_name}\r\nnetwork-password: #{network_password}\r\ngateway-password: #{gateway_password}"
         message = "version: 1.0\r\nto: #{to}\r\nfrom: #{from}\r\naction: register-gateway\r\ntype: request\r\nbody-size: #{byte_size(content)}\r\n\r\n#{content}"
-        IO.inspect(message)
-        #GenServer.cast(self(), {:send_message, message})
+        #IO.inspect(message)
+        GenServer.cast(self(), {:send_message, message})
         {:ok, :registered}
     end
 

@@ -1,6 +1,5 @@
 Próximos passos:
-- Criar o sistema de criar nova rede
-- Criar o sistema de participar de uma rede
+- Criar o sistema de participar de uma rede - processar mensagem recebida na action send-to-gateway
 - Terminar a action "send-to-gateway"
 
 
@@ -16,9 +15,12 @@ Alguns possíveis problemas:
 
 
 Funcionamento do discovery:
-- Depois de conectado com os hosts iniciais o gateway deve pegar a lista de hosts conectados e iniciar o discovery
-para cada um deles (faz request de todos os hosts conectados), para cada host obtido nesse processo repetir
-o discovery(aplicar então o filtro de hosts ja contactados, assim todos os hosts seriam atingidos mas apenas uma vez)
+SERA FEITO POR MEIO DAS ACTIONS, QUANDO UMA MENSAGEM DE REGISTRO BEM SUCEDIDA FOR RECEBIDA SERA ENVIADO UMA 
+MENSAGEM DE DISCOVERY, A RESPOSTA PRA ELA QUANDO CHEGAR SERA TRABALHADO POR UMA FUNÇÃO ESPECIFICA QUE IRA 
+PEGAR TODAS OS GATEWAYS E SE CONECTAR UM A UM.
+
+- Depois de conectado com os hosts iniciais o gateway deve pegar a lista de hosts conectados com eles e iniciar o discovery
+para cada um deles (faz request de todos os hosts conectados) em seguida conecta a todos eles e se registra
 
 
 
@@ -38,19 +40,3 @@ send-to-client:
 # buscar o client destinatário no registro
 # validar o client destinatário
 # enviar a mensagem ao destinatário
-
-
-
-try do
-  File.stream!("./.env")
-    |> Stream.map(&String.trim_trailing/1) # remove excess whitespace
-    |> Enum.each(fn line -> line           # loop through each line
-      |> String.replace("export ", "")     # remove "export" from line
-      |> String.split("=")                 # split on the "=" (equals sign)
-      |> Enum.reduce(fn(value, key) ->     # stackoverflow.com/q/33055834/1148249
-        System.put_env(key, value)         # set each environment variable
-      end)
-    end)
-rescue
-  _ -> IO.puts "no .env file found!"
-end

@@ -7,7 +7,7 @@ config :nautilus, :new_network, false
 config :nautilus, :network_name, "rede1"
 config :nautilus, :gateway_password, "pass"
 config :nautilus, :network_password, "1q2w3e4r"
-config :nautilus, :remote_gateways, [{{127,0,0,1}, 20000}, {{127,0,0,1}, 30000}]
+config :nautilus, :remote_gateways, [{{127,0,0,1}, 20000}]
 
 
 ################################## General ##################################

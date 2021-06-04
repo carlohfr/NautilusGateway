@@ -27,8 +27,15 @@ defmodule Nautilus.Adapters.Cluster.ClusterCredentials do
     @doc """
     This function will check if network credentials is valid
     """
-    def check_network_credentials(_network_name, _network_password, _gateway_password) do
-        {:ok, :valid}
+    def check_network_credentials(network_name, network_password, gateway_password) do
+        with true <- network_name == Application.get_env(:nautilus, :network_name),
+        true <- network_password == Application.get_env(:nautilus, :network_password),
+        true <- gateway_password == Application.get_env(:nautilus, :gateway_password) do
+            {:ok, :valid}
+        else
+            _ ->
+                {:error, :invalid}
+        end
     end
 
 end

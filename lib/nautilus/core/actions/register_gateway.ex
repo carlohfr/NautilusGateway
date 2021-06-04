@@ -24,13 +24,15 @@ defmodule Nautilus.Core.Actions.RegisterGateway do
         with true <- Process.alive?(pid), {:ok, credentials} <- split_network_credentials(message["content"]),
         {:ok, :valid} <- @cluster_credentials.check_network_credentials(credentials["network-name"], credentials["network-password"], credentials["gateway-password"]),
         :ok <- @key_value_adapter.set({message["from"], gateway_info}) do
-            {_, message} = @message_maker.make_send_to_gateway_message(message["to"], message["from"], "OK")
+            {_, network_name, network_password, gateway_password} = @cluster_credentials.get_network_credentials()
+            content = "network-name: #{network_name}\r\nnetwork-password: #{network_password}\r\ngateway-password: #{gateway_password}\r\nmessage-notify: gateway-registered"
+            {_, message} = @message_maker.make_send_to_gateway_message("response", message["to"], message["from"], content)
             @tcp_sender.send_message(pid, message)
         else
             false ->
                 {:error, :invalidpid}
             _ ->
-                {_, message} = @message_maker.make_send_to_gateway_message(message["to"], message["from"], "ERROR")
+                {_, message} = @message_maker.make_send_to_gateway_message("response", message["to"], message["from"], "message-notify: register-fail")
                 @tcp_sender.send_message(pid, message)
         end
     end

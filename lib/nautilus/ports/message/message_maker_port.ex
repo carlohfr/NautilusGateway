@@ -15,4 +15,10 @@ defmodule Nautilus.Ports.Message.MessageMaker do
     """
     @callback make_send_to_client_message(from :: String.t , to :: String.t, content :: String.t) :: any
 
+
+    @doc """
+    This function will make a notify message
+    """
+    @callback make_send_to_gateway_message(type :: String.t, from :: String.t, to :: String.t, content :: String.t) :: any
+
 end

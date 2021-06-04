@@ -26,9 +26,9 @@ defmodule Nautilus.Adapters.Cluster.ClusterManager do
 
 
     def connect_to_gateway(ip, port) do
-        IO.inspect(ip)
-        IO.inspect(port)
-        #_pid = spawn(@cluster_client, :start_link, [%{:ip => ip, :port => port}])
+        #IO.inspect(ip)
+        #IO.inspect(port)
+        _pid = spawn(@cluster_client, :start_link, [%{:ip => ip, :port => port, :discovery => true}])
         {:ok, :connected}
     end
 

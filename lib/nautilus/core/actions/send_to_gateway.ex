@@ -10,6 +10,7 @@ defmodule Nautilus.Core.Actions.SendToGateway do
     @get_hostname Application.get_env(:nautilus, :GetHostname)
     @client_validator Application.get_env(:nautilus, :ClientValidator)
     @cluster_credentials Application.get_env(:nautilus, :ClusterCredentials)
+    @admin_message_router Application.get_env(:nautilus, :AdminMessageRouter)
 
 
     @doc """
@@ -24,22 +25,16 @@ defmodule Nautilus.Core.Actions.SendToGateway do
 
             case this_gateway == message["to"] do
                 true ->
-                    # mensagem para esse gateway
-                    IO.puts("Esse gateway")
+                    # Message to this gateway
+                    @admin_message_router.route_message(pid, message)
                 _ ->
-                    # mensagem para um gateway remoto
+                    # Message to remote gateway
                     IO.puts("Gateway remoto")
             end
         else
             _ ->
                 {:error, :actionfail}
         end
-
-        {_, network_name, network_password, gateway_password} = @cluster_credentials.get_network_credentials()
-        content = "network-name: #{network_name}\r\nnetwork-password: #{network_password}\r\ngateway-password: #{gateway_password}"
-        message = "version: 1.0\r\nto: 127.0.0.1:20000\r\nfrom: 127.0.0.1:10000\r\naction: test-action\r\ntype: request\r\nbody-size: #{byte_size(content)}\r\n\r\n#{content}"
-        #IO.inspect(message)
-        GenServer.cast(pid, {:send_message, message})
     end
 
 

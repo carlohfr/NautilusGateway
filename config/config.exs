@@ -7,13 +7,13 @@ config :nautilus, :new_network, false
 config :nautilus, :network_name, "rede1"
 config :nautilus, :gateway_password, "pass"
 config :nautilus, :network_password, "1q2w3e4r"
-config :nautilus, :remote_gateways, [{{127,0,0,1}, 20000}]
+config :nautilus, :remote_gateways, [{{127,0,0,1}, 10000}]
 
 
 ################################## General ##################################
 
 config :nautilus, :env, :dev  #:prod, :dev, :test
-config :nautilus, :listen_port, 10000
+config :nautilus, :listen_port, 20000
 config :nautilus, :hostname_api_url, 'http://api.ipify.org'
 
 
@@ -22,6 +22,7 @@ config :nautilus, :hostname_api_url, 'http://api.ipify.org'
 # Cluster - Adapter module
 config :nautilus, :ClusterClient, Nautilus.Adapters.Cluster.ClusterClient
 config :nautilus, :ClusterManager, Nautilus.Adapters.Cluster.ClusterManager
+config :nautilus, :ClusterDiscovery, Nautilus.Adapters.Cluster.ClusterDiscovery
 config :nautilus, :ClusterCredentials, Nautilus.Adapters.Cluster.ClusterCredentials
 
 
@@ -43,6 +44,11 @@ config :nautilus, :GetHostname, Nautilus.Adapters.Utils.GetHostname
 
 
 ################################# Ports #################################
+
+
+# Cluster - Port module
+config :nautilus, :ClusterDiscoveryPort, Nautilus.Ports.Cluster.ClusterDiscoveryPort
+
 
 # Message - Port module
 config :nautilus, :MessageActionPort, Nautilus.Ports.Message.MessageAction
@@ -67,6 +73,9 @@ config :nautilus, :SendToGateway, Nautilus.Core.Actions.SendToGateway
 config :nautilus, :RegisterClient, Nautilus.Core.Actions.RegisterClient
 config :nautilus, :RegisterGateway, Nautilus.Core.Actions.RegisterGateway
 config :nautilus, :TestAction, Nautilus.Core.Actions.TestAction
+
+
+config :nautilus, :AdminMessageRouter, Nautilus.Core.Admin.AdminMessageRouter
 
 
 # Endpoint - Core module

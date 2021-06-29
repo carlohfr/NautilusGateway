@@ -1,6 +1,8 @@
 Próximos passos:
-- Criar o sistema de participar de uma rede - processar mensagem recebida na action send-to-gateway
+- Criar o sistema de participar de uma rede - enviar, receber e processar a mensagem de discovery
 - Terminar a action "send-to-gateway"
+- Colocar a função de split em somente um arquivo
+- Refatorar 
 
 
 - Criar uma biblioteca em python para auxiliar os testes
@@ -22,6 +24,8 @@ PEGAR TODAS OS GATEWAYS E SE CONECTAR UM A UM.
 - Depois de conectado com os hosts iniciais o gateway deve pegar a lista de hosts conectados com eles e iniciar o discovery
 para cada um deles (faz request de todos os hosts conectados) em seguida conecta a todos eles e se registra
 
+quando recebida uma lista de gateways deve ser verificado um por um para saber se ja nao é conhecido
+senão dar spawn em client para atender aquele gateways, se conhecido ignorar
 
 
 

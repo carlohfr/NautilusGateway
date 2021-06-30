@@ -3,7 +3,7 @@ use Mix.Config
 
 ################################## Network ##################################
 
-config :nautilus, :new_network, false
+config :nautilus, :new_network, true
 config :nautilus, :network_name, "rede1"
 config :nautilus, :gateway_password, "pass"
 config :nautilus, :network_password, "1q2w3e4r"
@@ -13,7 +13,7 @@ config :nautilus, :remote_gateways, [{{127,0,0,1}, 10000}]
 ################################## General ##################################
 
 config :nautilus, :env, :dev  #:prod, :dev, :test
-config :nautilus, :listen_port, 20000
+config :nautilus, :listen_port, 10000
 config :nautilus, :hostname_api_url, 'http://api.ipify.org'
 
 
@@ -75,7 +75,14 @@ config :nautilus, :RegisterGateway, Nautilus.Core.Actions.RegisterGateway
 config :nautilus, :TestAction, Nautilus.Core.Actions.TestAction
 
 
+# Admin - Core module
 config :nautilus, :AdminMessageRouter, Nautilus.Core.Admin.AdminMessageRouter
+config :nautilus, :CommandRouter, Nautilus.Core.Admin.CommandRouter
+config :nautilus, :ResponseRouter, Nautilus.Core.Admin.ResponseRouter
+
+
+# Admin/Commands - Core module
+config :nautilus, :CMDGetGatewayList, Nautilus.Core.Admin.Commands.CMDGetGatewayList
 
 
 # Endpoint - Core module

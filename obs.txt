@@ -1,5 +1,5 @@
 Próximos passos:
-- Criar o sistema de participar de uma rede - enviar, receber e processar a mensagem de discovery
+- Criar o sistema de participar de uma rede - processar a mensagem com a lista de gateways
 - Terminar a action "send-to-gateway"
 - Colocar a função de split em somente um arquivo
 - Refatorar 

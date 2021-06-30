@@ -4,27 +4,24 @@ defmodule Nautilus.Core.Admin.AdminMessageRouter do
     This module is resposible routing admin and control messages
     """
 
-    @cluster_discovery Application.get_env(:nautilus, :ClusterDiscovery)
+    @command_router Application.get_env(:nautilus, :CommandRouter)
+    @response_router Application.get_env(:nautilus, :ResponseRouter)
 
 
     def route_message(pid, message = %{"type" => "response"}) do
         {_, content} = split_content(message["content"])
-        route_response(pid, message, content)
+        @response_router.route_response(pid, message, content)
+    end
+
+
+    def route_message(pid, message = %{"type" => "command"}) do
+        {_, content} = split_content(message["content"])
+        @command_router.route_command(pid, message, content)
     end
 
 
     def route_message(_pid, _) do
         {:error, :indefined_type}
-    end
-
-
-    defp route_response(pid, _message, %{"message-notify" => "gateway-registered"}) do
-        @cluster_discovery.send_discovery_message(pid)
-    end
-
-
-    defp route_response(_pid, _message, _) do
-        {:error, :indefined_response}
     end
 
 

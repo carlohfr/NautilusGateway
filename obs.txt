@@ -1,7 +1,8 @@
 Próximos passos:
-- Criar o sistema de participar de uma rede - processar a mensagem com a lista de gateways
-- Terminar a action "send-to-gateway"
+- Revisar mecanismo de repasse da mensagem
 - Colocar a função de split em somente um arquivo
+- Criar funções no key value pra retornar clients e gateways conectados 
+- Limpar dados de um client que desconectou 
 - Refatorar 
 
 
@@ -12,6 +13,7 @@ Próximos passos:
 
 
 Alguns possíveis problemas:
+- lista de gateways conhecidos devia ser armazenada totalmente no key value ao iniciar o gateway, e então consultados a partir de la, assim evita puxar diretamente das configs e evita erros de sync 
 - retirar o registro de dentro do cluster_client.ex 
 - O client não esta sendo informado sobre o tamanho da mensagem (Talvez gere alguns problemas no futuro)
 

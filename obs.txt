@@ -1,8 +1,9 @@
 Próximos passos:
-- Revisar mecanismo de repasse da mensagem
+- Revisar mecanismo de repasse da mensagem - criar action forward-to-gateway e revisar a action send-to-gateway
 - Colocar a função de split em somente um arquivo
 - Criar funções no key value pra retornar clients e gateways conectados 
 - Limpar dados de um client que desconectou 
+- Separar o message preparator (a parte que quebra a mensagem deve ficar em outro arquivo, revisar action forward-to-client que chama o preparator)
 - Refatorar 
 
 

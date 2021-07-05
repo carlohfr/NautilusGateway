@@ -22,7 +22,7 @@ defmodule Nautilus.Adapters.Network.Message.MessagePreparator do
 
 
     # This function will split the message in two parts (header and body)
-    defp split_message(message) do
+    def split_message(message) do
         case :binary.match(message, ["\r\n\r\n"]) do
             {start, length} ->
                 header = :binary.part(message, 0, start)
@@ -35,7 +35,7 @@ defmodule Nautilus.Adapters.Network.Message.MessagePreparator do
 
 
     # This function will split the header fields of a message
-    defp split_header_fields(header_string) do
+    def split_header_fields(header_string) do
         case String.contains?(header_string, ["\r\n", ": "]) do
             true ->
                 header = header_string

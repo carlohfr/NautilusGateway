@@ -5,12 +5,13 @@ defmodule Nautilus.Core.Actions.SendToGateway do
     """
 
     @behaviour Application.get_env(:nautilus, :MessageActionPort)
-    #@tcp_sender Application.get_env(:nautilus, :TCPSender)
-    #@message_maker Application.get_env(:nautilus, :MessageMaker)
+    @tcp_sender Application.get_env(:nautilus, :TCPSender)
+    @message_maker Application.get_env(:nautilus, :MessageMaker)
     @get_hostname Application.get_env(:nautilus, :GetHostname)
     @client_validator Application.get_env(:nautilus, :ClientValidator)
     @cluster_credentials Application.get_env(:nautilus, :ClusterCredentials)
     @admin_message_router Application.get_env(:nautilus, :AdminMessageRouter)
+    @key_value_adapter Application.get_env(:nautilus, :KeyValueBucketInterface)
 
 
     @doc """
@@ -29,7 +30,14 @@ defmodule Nautilus.Core.Actions.SendToGateway do
                     @admin_message_router.route_message(pid, message)
                 _ ->
                     # Message to remote gateway
-                    IO.puts("Gateway remoto")
+                    with {:ok, gateway_info} <- @key_value_adapter.get(message["to"]),
+                        {:ok, _} <- @client_validator.validate_client(message["to"], gateway_info[:pid]) do
+                        {_, forward_message} = @message_maker.make_forward_to_gateway_message(message, this_gateway, message["to"])
+                        @tcp_sender.send_message(gateway_info[:pid], forward_message)
+                    else
+                        _ ->
+                            {:error, :invalidgateway}
+                    end
             end
         else
             _ ->

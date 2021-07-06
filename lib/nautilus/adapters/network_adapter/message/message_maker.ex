@@ -39,9 +39,17 @@ defmodule Nautilus.Adapters.Network.Message.MessageMaker do
     """
     def make_forward_to_client_message(message, from, to) do
         {_, content} = make_message(message)
-        IO.inspect(content)
         forward_message = "version: 1.0\r\nto: #{to}\r\nfrom: #{from}\r\naction: forward-to-client\r\ntype: message\r\nbody-size: #{byte_size(content)}\r\n\r\n#{content}"
-        IO.inspect(forward_message)
+        {:ok, forward_message}
+    end
+
+
+    @doc """
+    This function will make a forward to gateway message
+    """
+    def make_forward_to_gateway_message(message, from, to) do
+        {_, content} = make_message(message)
+        forward_message = "version: 1.0\r\nto: #{to}\r\nfrom: #{from}\r\naction: forward-to-gateway\r\ntype: message\r\nbody-size: #{byte_size(content)}\r\n\r\n#{content}"
         {:ok, forward_message}
     end
 end

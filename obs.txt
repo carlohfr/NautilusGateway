@@ -1,6 +1,5 @@
 Próximos passos:
 - Refatorar 
-    + Colocar a função de split em somente um arquivo
     + Criar funções no key value pra retornar clients e gateways conectados 
     + Limpar dados de um client que desconectou 
     + Separar o message preparator (a parte que quebra a mensagem deve ficar em outro arquivo, revisar action forward-to-client que chama o preparator)
@@ -8,7 +7,6 @@ Próximos passos:
     + Salvar os dados do gateway no key value
 
 - Criar uma biblioteca em python para auxiliar os testes
-
 
 
 Alguns possíveis problemas:

@@ -7,6 +7,7 @@ defmodule Nautilus.Core.Actions.RegisterGateway do
     @behaviour Application.get_env(:nautilus, :MessageActionPort)
     @tcp_sender Application.get_env(:nautilus, :TCPSender)
     @message_maker Application.get_env(:nautilus, :MessageMaker)
+    @split_content Application.get_env(:nautilus, :SplitContent)
     @cluster_credentials Application.get_env(:nautilus, :ClusterCredentials)
     @key_value_adapter Application.get_env(:nautilus, :KeyValueBucketInterface)
 
@@ -21,7 +22,7 @@ defmodule Nautilus.Core.Actions.RegisterGateway do
 
         gateway_info =  %{:pid => pid, :ip => remote_gateway_ip, :port => remote_gateway_port, :type => :gateway}
 
-        with true <- Process.alive?(pid), {:ok, credentials} <- split_network_credentials(message["content"]),
+        with true <- Process.alive?(pid), {:ok, credentials} <- @split_content.split_content(message["content"]),
         {:ok, :valid} <- @cluster_credentials.check_network_credentials(credentials["network-name"], credentials["network-password"], credentials["gateway-password"]),
         :ok <- @key_value_adapter.set({message["from"], gateway_info}) do
             {_, network_name, network_password, gateway_password} = @cluster_credentials.get_network_credentials()
@@ -34,22 +35,6 @@ defmodule Nautilus.Core.Actions.RegisterGateway do
             _ ->
                 {_, message} = @message_maker.make_send_to_gateway_message("response", message["to"], message["from"], "message-notify: register-fail")
                 @tcp_sender.send_message(pid, message)
-        end
-    end
-
-
-    defp split_network_credentials(credentials) do
-        case String.contains?(credentials, ["\r\n", ": "]) do
-            true ->
-                filtered_credentials = credentials
-                |> String.split(["\r\n", ": "])
-                |> Enum.chunk_every(2)
-                |> Enum.map(fn [a, b] -> {a, b} end)
-                |> Map.new
-
-                {:ok, filtered_credentials}
-            _ ->
-                {:error, :no_fields}
         end
     end
 

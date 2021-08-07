@@ -11,7 +11,8 @@ sock.connect(ADDR)
 
 network_credentials = "network-name: rede1\r\nnetwork-password: 1q2w3e4r\r\ngateway-password: pass"
 
-reg_message = f"version: 1.0\r\nto: 127.0.0.1:10000\r\nfrom: 127.0.0.1:50000\r\naction: register-gateway\r\ntype: request\r\nbody-size: {len(network_credentials)}\r\n\r\n{network_credentials}"
+reg_message = f"version: 1.0\r\nto: 127.0.0.1:10000\r\nfrom: 127.0.0.1:50000\r\naction: register-gateway\r\n"
+reg_message == f"type: request\r\nbody-size: {len(network_credentials)}\r\n\r\n{network_credentials}"
 reg_message = reg_message.encode("utf-8")
 sock.send(reg_message)
 
@@ -21,3 +22,5 @@ print(return_message)
 time.sleep(2)
 
 sock.close()
+
+

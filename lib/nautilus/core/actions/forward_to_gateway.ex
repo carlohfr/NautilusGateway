@@ -12,6 +12,7 @@ defmodule Nautilus.Core.Actions.ForwardToGateway do
     @client_validator Application.get_env(:nautilus, :ClientValidator)
     ##@key_value_adapter Application.get_env(:nautilus, :KeyValueBucketInterface)
 
+    @split_content Application.get_env(:nautilus, :SplitContent)
 
     @doc """
     This function will try to forward message to a gateway
@@ -22,7 +23,7 @@ defmodule Nautilus.Core.Actions.ForwardToGateway do
         with true <- message["to"] == this_gateway,
             {:ok, _} <- @client_validator.validate_client(message["from"], pid) do
 
-                with {header_string, body} <- @message_preparator.split_message(message["content"]), {:ok, header} <- @message_preparator.split_header_fields(header_string) do
+                with {header_string, body} <- @message_preparator.split_message(message["content"]), {:ok, header} <- @split_content.split_content(header_string) do
                     message_received = Map.put(header, "content", body)
                     IO.inspect(message_received)
 

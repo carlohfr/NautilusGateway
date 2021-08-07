@@ -6,8 +6,9 @@ defmodule Nautilus.Core.Actions.SendToGateway do
 
     @behaviour Application.get_env(:nautilus, :MessageActionPort)
     @tcp_sender Application.get_env(:nautilus, :TCPSender)
-    @message_maker Application.get_env(:nautilus, :MessageMaker)
     @get_hostname Application.get_env(:nautilus, :GetHostname)
+    @message_maker Application.get_env(:nautilus, :MessageMaker)
+    @split_content Application.get_env(:nautilus, :SplitContent)
     @client_validator Application.get_env(:nautilus, :ClientValidator)
     @cluster_credentials Application.get_env(:nautilus, :ClusterCredentials)
     @admin_message_router Application.get_env(:nautilus, :AdminMessageRouter)
@@ -19,7 +20,7 @@ defmodule Nautilus.Core.Actions.SendToGateway do
     """
     def execute(pid, message) do
         with {:ok, _} <- @client_validator.validate_client(message["from"], pid),
-        {:ok, credentials} <- split_network_credentials(message["content"]),
+        {:ok, credentials} <- @split_content.split_content(message["content"]),
         {:ok, :valid} <- @cluster_credentials.check_network_credentials(credentials["network-name"], credentials["network-password"], credentials["gateway-password"]) do
 
             {_, this_gateway} = @get_hostname.get_hostname()
@@ -42,22 +43,6 @@ defmodule Nautilus.Core.Actions.SendToGateway do
         else
             _ ->
                 {:error, :actionfail}
-        end
-    end
-
-
-    defp split_network_credentials(credentials) do
-        case String.contains?(credentials, ["\r\n", ": "]) do
-            true ->
-                filtered_credentials = credentials
-                |> String.split(["\r\n", ": "])
-                |> Enum.chunk_every(2)
-                |> Enum.map(fn [a, b] -> {a, b} end)
-                |> Map.new
-
-                {:ok, filtered_credentials}
-            _ ->
-                {:error, :no_fields}
         end
     end
 

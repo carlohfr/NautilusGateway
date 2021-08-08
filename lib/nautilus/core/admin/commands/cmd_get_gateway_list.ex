@@ -10,10 +10,9 @@ defmodule Nautilus.Core.Admin.Commands.CMDGetGatewayList do
 
 
     def execute_command(pid, message) do
-        client_list = @key_value_adapter.get_all()
         {_, this_gateway} = @get_hostname.get_hostname()
         {_, network_name, network_password, gateway_password} = @cluster_credentials.get_network_credentials()
-        {_, gateway_list} = filter_gateways(client_list)
+        {_, gateway_list} = @key_value_adapter.get_gateway_list()
 
         gateway_list = Enum.join(gateway_list, ", ")
         gateway_list = "[#{gateway_list}]"
@@ -22,18 +21,6 @@ defmodule Nautilus.Core.Admin.Commands.CMDGetGatewayList do
         content = "network-name: #{network_name}\r\nnetwork-password: #{network_password}\r\ngateway-password: #{gateway_password}\r\nmessage-notify: gateway-list\r\ngateway-list: #{gateway_list}"
         response = "version: 1.0\r\nto: #{to}\r\nfrom: #{this_gateway}\r\naction: send-to-gateway\r\ntype: response\r\nbody-size: #{byte_size(content)}\r\n\r\n#{content}"
         GenServer.cast(pid, {:send_message, response})
-    end
-
-
-    defp filter_gateways(client_list) do
-        gateway_list = Enum.map(client_list, fn {key, value} ->
-            case value[:type] == :gateway do
-                :true ->
-                    key
-            end
-        end)
-
-        {:ok, gateway_list}
     end
 
 end

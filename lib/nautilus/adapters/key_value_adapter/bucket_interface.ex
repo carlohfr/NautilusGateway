@@ -37,6 +37,28 @@ defmodule Nautilus.Adapters.KeyValue.BucketInterface do
 
 
     @doc """
+    This function will return a list of clients
+    """
+    def get_client_list do
+        client_list = Enum.reject(get_all(), fn client -> elem(client, 1).type == :gateway end)
+        |> Enum.map(fn {key, _value} -> key end)
+
+        {:ok, client_list}
+    end
+
+
+    @doc """
+    This function will return a list of gateways
+    """
+    def get_gateway_list do
+        gateway_list = Enum.reject(get_all(), fn gateway -> elem(gateway, 1).type == :client end)
+        |> Enum.map(fn {key, _value} -> key end)
+
+        {:ok, gateway_list}
+    end
+
+
+    @doc """
     This function will receive a key and delete a value saved on bucket
     """
     def delete(key) do

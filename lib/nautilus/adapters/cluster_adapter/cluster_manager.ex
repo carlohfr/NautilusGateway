@@ -30,7 +30,7 @@ defmodule Nautilus.Adapters.Cluster.ClusterManager do
 
     def prepare_gateway_list(gateway_list) do
         {_, this_gateway} = @get_hostname.get_hostname()
-        {_, known_gateways} = @key_value_adapter.get_all() |> filter_gateways()
+        {_, known_gateways} = @key_value_adapter.get_gateway_list()
 
         gateway_list
         |> String.replace("[", "")
@@ -50,18 +50,6 @@ defmodule Nautilus.Adapters.Cluster.ClusterManager do
     def connect_to_gateway(ip, port) do
         _pid = spawn(@cluster_client, :start_link, [%{:ip => ip, :port => port, :discovery => true}])
         {:ok, :connected}
-    end
-
-
-    defp filter_gateways(client_list) do
-        gateway_list = Enum.map(client_list, fn {key, value} ->
-            case value[:type] == :gateway do
-                :true ->
-                    key
-            end
-        end)
-
-        {:ok, gateway_list}
     end
 
 end

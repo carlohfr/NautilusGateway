@@ -24,4 +24,14 @@ defmodule Nautilus.Ports.KeyValue.KeyValueBucketInterface do
     """
     @callback get_all :: any
 
+    @doc """
+    This function will return a list of clients
+    """
+    @callback get_client_list :: any
+
+    @doc """
+    This function will return a list of gateways
+    """
+    @callback get_gateway_list :: any
+
 end

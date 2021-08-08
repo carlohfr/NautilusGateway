@@ -4,7 +4,7 @@ defmodule Nautilus.Core.Admin.ResponseRouter do
     This module is responsible for routing response
     """
 
-    @split_content Application.get_env(:nautilus, :SplitContent)
+    @split Application.get_env(:nautilus, :Split)
     @cluster_manager Application.get_env(:nautilus, :ClusterManager)
     @cluster_discovery Application.get_env(:nautilus, :ClusterDiscovery)
 
@@ -15,7 +15,7 @@ defmodule Nautilus.Core.Admin.ResponseRouter do
 
 
     def route_response(_pid, message, %{"message-notify" => "gateway-list"}) do
-        {_, content} =  @split_content.split_content(message["content"])
+        {_, content} =  @split.split_content(message["content"])
         @cluster_manager.prepare_gateway_list(content["gateway-list"])
     end
 

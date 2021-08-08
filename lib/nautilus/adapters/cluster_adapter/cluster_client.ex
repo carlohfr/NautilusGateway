@@ -118,9 +118,17 @@ defmodule Nautilus.Adapters.Cluster.ClusterClient do
 
 
     @doc """
-    This is a callback functions for tcp error and tcp close events
+    This function handles with close connection event
+    """
+    def handle_info({:tcp_closed, _socket}, state) do
+        @key_value_adapter.delete_by_pid(self())
+        {:stop, :normal, state}
+    end
+
+
+    @doc """
+    This function handles with error connection event
     """
     def handle_info({:tcp_error, _}, state), do: {:stop, :normal, state}
-    def handle_info({:tcp_closed, _}, state), do: {:stop, :normal, state}
 
 end

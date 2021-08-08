@@ -8,7 +8,7 @@ defmodule Nautilus.Core.Actions.SendToGateway do
     @tcp_sender Application.get_env(:nautilus, :TCPSender)
     @get_hostname Application.get_env(:nautilus, :GetHostname)
     @message_maker Application.get_env(:nautilus, :MessageMaker)
-    @split_content Application.get_env(:nautilus, :SplitContent)
+    @split Application.get_env(:nautilus, :Split)
     @client_validator Application.get_env(:nautilus, :ClientValidator)
     @cluster_credentials Application.get_env(:nautilus, :ClusterCredentials)
     @admin_message_router Application.get_env(:nautilus, :AdminMessageRouter)
@@ -20,7 +20,7 @@ defmodule Nautilus.Core.Actions.SendToGateway do
     """
     def execute(pid, message) do
         with {:ok, _} <- @client_validator.validate_client(message["from"], pid),
-        {:ok, credentials} <- @split_content.split_content(message["content"]),
+        {:ok, credentials} <- @split.split_content(message["content"]),
         {:ok, :valid} <- @cluster_credentials.check_network_credentials(credentials["network-name"], credentials["network-password"], credentials["gateway-password"]) do
 
             {_, this_gateway} = @get_hostname.get_hostname()

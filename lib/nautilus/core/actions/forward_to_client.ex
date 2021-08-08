@@ -5,14 +5,12 @@ defmodule Nautilus.Core.Actions.ForwardToClient do
     """
 
     @behaviour Application.get_env(:nautilus, :MessageActionPort)
-    @message_preparator Application.get_env(:nautilus, :MessagePreparator)
+    @split Application.get_env(:nautilus, :Split)
     @tcp_sender Application.get_env(:nautilus, :TCPSender)
     @get_hostname Application.get_env(:nautilus, :GetHostname)
     @message_maker Application.get_env(:nautilus, :MessageMaker)
     @client_validator Application.get_env(:nautilus, :ClientValidator)
     @key_value_adapter Application.get_env(:nautilus, :KeyValueBucketInterface)
-
-    @split_content Application.get_env(:nautilus, :SplitContent)
 
 
     @doc """
@@ -24,8 +22,8 @@ defmodule Nautilus.Core.Actions.ForwardToClient do
         with true <- message["to"] == this_gateway,
             {:ok, _} <- @client_validator.validate_client(message["from"], pid) do
 
-                with {header_string, body} <- @message_preparator.split_message(message["content"]),
-                    {:ok, header} <- @split_content.split_content(header_string) do
+                with {header_string, body} <- @split.split_message(message["content"]),
+                    {:ok, header} <- @split.split_content(header_string) do
                     message_to_client = Map.put(header, "content", body)
 
                     with {:ok, client_info} <- @key_value_adapter.get(message_to_client["to"]),

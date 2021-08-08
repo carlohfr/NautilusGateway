@@ -40,8 +40,8 @@ config :nautilus, :MessagePreparator, Nautilus.Adapters.Network.Message.MessageP
 
 
 # Utils - Adapter module
+config :nautilus, :Split, Nautilus.Adapters.Utils.Split
 config :nautilus, :GetHostname, Nautilus.Adapters.Utils.GetHostname
-config :nautilus, :SplitContent, Nautilus.Adapters.Utils.SplitContent
 
 
 ################################# Ports #################################

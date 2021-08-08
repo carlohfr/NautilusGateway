@@ -1,6 +1,5 @@
 Próximos passos:
 - Refatorar 
-    + Separar o message preparator (a parte que quebra a mensagem deve ficar em outro arquivo, revisar action forward-to-client que chama o preparator)
     + Salvar os dados da rede no key value 
     + Salvar os dados do gateway no key value
 

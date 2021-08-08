@@ -1,7 +1,5 @@
 Próximos passos:
 - Refatorar 
-    + Criar funções no key value pra retornar clients e gateways conectados 
-    + Limpar dados de um client que desconectou 
     + Separar o message preparator (a parte que quebra a mensagem deve ficar em outro arquivo, revisar action forward-to-client que chama o preparator)
     + Salvar os dados da rede no key value 
     + Salvar os dados do gateway no key value
@@ -15,15 +13,3 @@ Alguns possíveis problemas:
 - Retirar o registro de dentro do cluster_client.ex 
 - O client não esta sendo informado sobre o tamanho da mensagem (Talvez gere alguns problemas no futuro)
 
-
-
-Funcionamento do discovery:
-SERA FEITO POR MEIO DAS ACTIONS, QUANDO UMA MENSAGEM DE REGISTRO BEM SUCEDIDA FOR RECEBIDA SERA ENVIADO UMA 
-MENSAGEM DE DISCOVERY, A RESPOSTA PRA ELA QUANDO CHEGAR SERA TRABALHADO POR UMA FUNÇÃO ESPECIFICA QUE IRA 
-PEGAR TODAS OS GATEWAYS E SE CONECTAR UM A UM.
-
-- Depois de conectado com os hosts iniciais o gateway deve pegar a lista de hosts conectados com eles e iniciar o discovery
-para cada um deles (faz request de todos os hosts conectados) em seguida conecta a todos eles e se registra
-
-quando recebida uma lista de gateways deve ser verificado um por um para saber se ja nao é conhecido
-senão dar spawn em client para atender aquele gateways, se conhecido ignorar

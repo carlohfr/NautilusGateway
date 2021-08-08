@@ -9,6 +9,7 @@ defmodule Nautilus.Adapters.Network.TCP.TCPHandler do
 
     @behaviour :ranch_protocol
     @message_preparator Application.get_env(:nautilus, :MessagePreparator)
+    @key_value_adapter Application.get_env(:nautilus, :KeyValueBucketInterface)
 
 
     @doc """
@@ -52,8 +53,9 @@ defmodule Nautilus.Adapters.Network.TCP.TCPHandler do
     This function handles with close connection event
     """
     def handle_info({:tcp_closed, socket}, state = %{socket: socket, transport: transport}) do
-        Logger.info("Client quit") #just for test, remove in final version
+        @key_value_adapter.delete_by_pid(self())
         transport.close(socket)
+        Logger.info("Client quit") #just for test, remove in final version
         {:stop, :normal, state}
     end
 

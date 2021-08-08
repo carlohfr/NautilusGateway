@@ -10,9 +10,14 @@ defmodule Nautilus.Ports.KeyValue.KeyValueBucketInterface do
     @callback set({key :: any , value :: any}) :: any
 
     @doc """
-    This function will receive a key and delete a value saved on bucket
+    This function will receive a id and delete a value saved on bucket
     """
-    @callback delete(key :: any) :: any
+    @callback delete_by_id(id :: any) :: any
+
+    @doc """
+    This function will receive a pid and delete a value saved on bucket
+    """
+    @callback delete_by_pid(pid :: pid()) :: any
 
     @doc """
     This function will receive a key and return a value saved on bucket

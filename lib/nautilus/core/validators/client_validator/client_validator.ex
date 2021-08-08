@@ -16,7 +16,7 @@ defmodule Nautilus.Core.Validators.ClientValidator.ClientValidator do
             {:ok, :validclient}
         else
             _ ->
-                _status = @key_value_adapter.delete(id)
+                _status = @key_value_adapter.delete_by_id(id)
                 {:error, :invalidclient}
         end
     end

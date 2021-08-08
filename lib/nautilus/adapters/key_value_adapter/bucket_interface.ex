@@ -59,10 +59,22 @@ defmodule Nautilus.Adapters.KeyValue.BucketInterface do
 
 
     @doc """
-    This function will receive a key and delete a value saved on bucket
+    This function will receive a id and delete a value saved on bucket
     """
-    def delete(key) do
-        GenServer.call(:bucket, {:delete, key})
+    def delete_by_id(id) do
+        GenServer.call(:bucket, {:delete, id})
+    end
+
+
+    @doc """
+    This function will receive a pid and delete a value saved on bucket
+    """
+    def delete_by_pid(pid) do
+        Enum.each(get_all(), fn client ->
+            with true <- elem(client, 1).pid == pid do
+                GenServer.call(:bucket, {:delete, elem(client, 0)})
+            end
+        end)
     end
 
 end

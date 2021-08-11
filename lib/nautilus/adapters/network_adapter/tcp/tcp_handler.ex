@@ -68,4 +68,14 @@ defmodule Nautilus.Adapters.Network.TCP.TCPHandler do
         {:noreply, state}
     end
 
+
+    @doc """
+    This function will kick the client
+    """
+    def handle_cast({:kick}, state = %{socket: _socket}) do
+        @key_value_adapter.delete_by_pid(self())
+        Logger.info("Kick client") # retirar
+        {:stop, :normal, state}
+    end
+
 end

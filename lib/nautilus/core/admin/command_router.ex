@@ -4,11 +4,17 @@ defmodule Nautilus.Core.Admin.CommandRouter do
     This module is responsible for routing commands
     """
 
-    @get_gateway_list Application.get_env(:nautilus, :CMDGetGatewayList)
+    @cmd_kick Application.get_env(:nautilus, :CMDKick)
+    @cmd_get_gateway_list Application.get_env(:nautilus, :CMDGetGatewayList)
 
 
     def route_command(pid, message, %{"command" => "get-gateway-list"}) do
-        @get_gateway_list.execute_command(pid, message)
+        @cmd_get_gateway_list.execute_command(pid, message)
+    end
+
+
+    def route_command(pid, message, %{"command" => "kick"}) do
+        @cmd_kick.execute_command(pid, message)
     end
 
 

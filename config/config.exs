@@ -85,6 +85,7 @@ config :nautilus, :ResponseRouter, Nautilus.Core.Admin.ResponseRouter
 
 
 # Admin/Commands - Core module
+config :nautilus, :CMDKick, Nautilus.Core.Admin.Commands.CMDKick
 config :nautilus, :CMDGetGatewayList, Nautilus.Core.Admin.Commands.CMDGetGatewayList
 
 

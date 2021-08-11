@@ -98,16 +98,6 @@ defmodule Nautilus.Adapters.Cluster.ClusterClient do
 
 
     @doc """
-    This is a callback function for send messages for remote gateway
-    """
-    def handle_cast({:send_message, message}, %{socket: socket} = state) do
-        Logger.info "Sending #{message}" # retirar
-        :ok = :gen_tcp.send(socket, message)
-        {:noreply, state}
-    end
-
-
-    @doc """
     This is a callback function for receive messages from remote gateway
     """
     def handle_info({:tcp, _, message}, state) do
@@ -122,6 +112,26 @@ defmodule Nautilus.Adapters.Cluster.ClusterClient do
     """
     def handle_info({:tcp_closed, _socket}, state) do
         @key_value_adapter.delete_by_pid(self())
+        {:stop, :normal, state}
+    end
+
+
+    @doc """
+    This is a callback function for send messages for remote gateway
+    """
+    def handle_cast({:send_message, message}, %{socket: socket} = state) do
+        Logger.info "Sending #{message}" # retirar
+        :ok = :gen_tcp.send(socket, message)
+        {:noreply, state}
+    end
+
+
+    @doc """
+    This function will kick the gateway
+    """
+    def handle_cast({:kick}, state = %{socket: _socket}) do
+        @key_value_adapter.delete_by_pid(self())
+        Logger.info("Kick gateway") # retirar
         {:stop, :normal, state}
     end
 

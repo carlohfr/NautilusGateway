@@ -18,12 +18,16 @@ return_message = return_message.decode("utf-8")
 return_message = return_message.split("\r\n\r\n")
 this_id = return_message[1]      
 
-network_credentials = "network-name: rede1\r\nnetwork-password: 1q2w3e4r\r\ngateway-password: pass\r\ncommand: kick\r\ntarget: 127.0.0.1:10000"
+network_credentials = "network-name: rede1\r\nnetwork-password: 1q2w3e4r\r\ngateway-password: pass\r\ncommand: get-client-list"
 message = f"version: 1.0\r\nto: 127.0.0.1:10000\r\nfrom: {this_id}\r\n"
 message += f"action: send-to-gateway\r\ntype: command\r\nbody-size: {len(network_credentials)}\r\n\r\n{network_credentials}"
 message = message.encode("utf-8")
 print(message)
 sock.send(message)
+
+return_message = sock.recv(BUF_SIZE)
+return_message = return_message.decode("utf-8") 
+print(return_message)
 
 time.sleep(2)
 

@@ -47,6 +47,10 @@ config :nautilus, :GetHostname, Nautilus.Adapters.Utils.GetHostname
 ################################# Ports #################################
 
 
+# Admin - Port module
+config :nautilus, :CMDPort, Nautilus.Ports.Admin.CMDPort
+
+
 # Cluster - Port module
 config :nautilus, :ClusterDiscoveryPort, Nautilus.Ports.Cluster.ClusterDiscoveryPort
 
@@ -86,6 +90,7 @@ config :nautilus, :ResponseRouter, Nautilus.Core.Admin.ResponseRouter
 
 # Admin/Commands - Core module
 config :nautilus, :CMDKick, Nautilus.Core.Admin.Commands.CMDKick
+config :nautilus, :CMDGetClientList, Nautilus.Core.Admin.Commands.CMDGetClientList
 config :nautilus, :CMDGetGatewayList, Nautilus.Core.Admin.Commands.CMDGetGatewayList
 
 

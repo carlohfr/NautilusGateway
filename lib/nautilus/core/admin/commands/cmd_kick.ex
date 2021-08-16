@@ -4,6 +4,7 @@ defmodule Nautilus.Core.Admin.Commands.CMDKick do
     This module is responsible for process get gateway list command
     """
 
+    @behaviour Application.get_env(:nautilus, :CMDPort)
     @split Application.get_env(:nautilus, :Split)
     @key_value_adapter Application.get_env(:nautilus, :KeyValueBucketInterface)
 

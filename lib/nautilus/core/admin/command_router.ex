@@ -8,6 +8,7 @@ defmodule Nautilus.Core.Admin.CommandRouter do
     @cmd_get_client_list Application.get_env(:nautilus, :CMDGetClientList)
     @cmd_get_gateway_list Application.get_env(:nautilus, :CMDGetGatewayList)
     @cmd_gateway_shutdown Application.get_env(:nautilus, :CMDGatewayShutdown)
+    @cmd_network_shutdown Application.get_env(:nautilus, :CMDNetworkShutdown)
 
 
     def route_command(pid, message, %{"command" => "get-client-list"}) do
@@ -22,6 +23,11 @@ defmodule Nautilus.Core.Admin.CommandRouter do
 
     def route_command(pid, message, %{"command" => "gateway-shutdown"}) do
         @cmd_gateway_shutdown.execute_command(pid, message)
+    end
+
+
+    def route_command(pid, message, %{"command" => "network-shutdown"}) do
+        @cmd_network_shutdown.execute_command(pid, message)
     end
 
 

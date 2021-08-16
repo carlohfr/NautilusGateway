@@ -92,6 +92,7 @@ config :nautilus, :ResponseRouter, Nautilus.Core.Admin.ResponseRouter
 config :nautilus, :CMDKick, Nautilus.Core.Admin.Commands.CMDKick
 config :nautilus, :CMDGetClientList, Nautilus.Core.Admin.Commands.CMDGetClientList
 config :nautilus, :CMDGetGatewayList, Nautilus.Core.Admin.Commands.CMDGetGatewayList
+config :nautilus, :CMDGatewayShutdown, Nautilus.Core.Admin.Commands.CMDGatewayShutdown
 
 
 # Endpoint - Core module

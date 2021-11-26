@@ -12,3 +12,10 @@ Alguns possíveis problemas:
 - Retirar o registro de dentro do cluster_client.ex 
 - O client não esta sendo informado sobre o tamanho da mensagem (Talvez gere alguns problemas no futuro)
 
+
+Mudanças:
+- Criar uma opção nas configs que permita que o gateway participe da rede global ou que esteja em uma rede privada.
+- Usar um algoritmo de roteamento (Kademlia, OSPF, etc).
+- O id do client sera sua chave publica, fazer com que o client gere suas chaves privadas e publicas e depois se registre.
+
+- A chave publica do gateway sera o ip e a porta? Nesse caso como impedir que um gateway possa se passar por outro.
